@@ -1,6 +1,6 @@
 import java.awt.*;
 
-public class Board extends Canvas {
+public class Board extends Panel {
 	
 	Board(){
 		setSize(500, 500);

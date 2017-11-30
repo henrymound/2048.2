@@ -16,18 +16,16 @@ public class main extends Applet {//implements ActionListener
 		add(mainBoard);
 		
 		setBackground(Color.red);
-		Button larger = new Button("Larger");
-		add(larger);
 		Tile tile = new Tile(1) ;
-		add(tile);
+		mainBoard.add(tile);
 		Tile tile2 = new Tile(2) ;
-		add(tile2);
+		mainBoard.add(tile2);
 		Tile tile3 = new Tile(3) ;
-		add(tile3);
+		mainBoard.add(tile3);
 		Tile tile4 = new Tile(4) ;
-		add(tile4);
+		mainBoard.add(tile4);
 		Tile tile5 = new Tile(5) ;
-		add(tile5);
+		mainBoard.add(tile5);
 		
 		
 		
