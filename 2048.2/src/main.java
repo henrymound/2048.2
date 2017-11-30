@@ -12,6 +12,10 @@ public class main extends Applet {//implements ActionListener
 
 	public void init() {
 		
+		Board mainBoard = new Board();
+		add(mainBoard);
+		
+		setBackground(Color.red);
 		Button larger = new Button("Larger");
 		add(larger);
 		Tile tile = new Tile(1) ;
@@ -24,6 +28,9 @@ public class main extends Applet {//implements ActionListener
 		add(tile4);
 		Tile tile5 = new Tile(5) ;
 		add(tile5);
+		
+		
+		
 		setSize(500, 500);
 	}
 	
