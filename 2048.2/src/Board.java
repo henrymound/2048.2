@@ -40,8 +40,10 @@ public class Board extends Canvas {
 				 	case 3: xCoord = (int)(BOARD_SIZE * (1 - (Tile.TILE_RATIO * 4))) + tileSpacing;
 				 	default: break;
 				 }
-				 g.setColor(Color.BLUE);
+				 g.setColor(board[i][x].tileColor);
 				 g.drawRect(xCoord, yCoord, (int)(main.BOARD_SIZE * Tile.TILE_RATIO), 
+						 (int)(main.BOARD_SIZE * Tile.TILE_RATIO));
+				 g.fillRect(xCoord, yCoord, (int)(main.BOARD_SIZE * Tile.TILE_RATIO), 
 						 (int)(main.BOARD_SIZE * Tile.TILE_RATIO));
 			 }
 		 }
