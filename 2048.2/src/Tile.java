@@ -7,10 +7,14 @@ public class Tile extends Canvas {
 	static final Color TILE_16_COLOR = new Color(244, 112, 85);
 	static final Color TILE_32_COLOR = new Color(231, 78, 51);
 	
+	static final double TILE_RATIO = 0.2;
+	
+	Color tileColor;
 	 
-	Tile(int powerOfTwo) {
-		setSize(100, 100);
+	Tile(int boardSize, int powerOfTwo) {
+		setSize((int)(boardSize * TILE_RATIO), (int)(boardSize * TILE_RATIO));
 		setBackground(colorFromPower(powerOfTwo));
+		tileColor = colorFromPower(powerOfTwo);
 	}
 
 
@@ -26,6 +30,7 @@ public class Tile extends Canvas {
 		}
 	}
 	
+
 
 	
 }
