@@ -2,12 +2,22 @@ import java.awt.*;
 
 public class Board extends Canvas {
 	
+<<<<<<< HEAD
 	Tile[][] board = new Tile[4][4];
 	int BOARD_SIZE;
 	
 	Board(int size){
 		BOARD_SIZE = size;
 		setSize(size, size);
+=======
+	//instance variables
+	Tile[][] board = new Tile[4][4];
+	boolean board_full = false;
+	
+	//constructor
+	Board(){
+		setSize(500, 500);
+>>>>>>> sam
 		setBackground(Color.darkGray);
 
 		for(int i = 0; i < 4; i++) {
@@ -47,6 +57,20 @@ public class Board extends Canvas {
 						 (int)(main.BOARD_SIZE * Tile.TILE_RATIO));
 			 }
 		 }
+	}
+	
+	//methods
+	public boolean is_Full() {
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < 4; j++) {
+				if (board[i][j] == null) {
+					return false;
+				} else {
+					continue;
+				}
+			}
+		}
+		return true;
 	}
 
 }

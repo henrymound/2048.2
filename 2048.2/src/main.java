@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.*; 
 
+<<<<<<< HEAD
 public class main extends Applet {//implements ActionListener 
 	
 	static final int BOARD_SIZE = 500;
@@ -21,6 +22,14 @@ public class main extends Applet {//implements ActionListener
 		setBackground(Color.red);
 
 		
+=======
+public class main extends Applet{ // implements ActionListener implements KeyListener
+
+	public void init() {
+		
+		Board mainBoard = new Board();
+		
+>>>>>>> sam
 		
 		
 		
