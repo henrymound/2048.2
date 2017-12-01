@@ -6,11 +6,26 @@ public class Tile extends Canvas {
 	static final Color TILE_8_COLOR = new Color(233, 130, 75);
 	static final Color TILE_16_COLOR = new Color(244, 112, 85);
 	static final Color TILE_32_COLOR = new Color(231, 78, 51);
+	/*static final Color TILE_64_COLOR = new Color();
+	static final Color TILE_128_COLOR = new Color();
+	static final Color TILE_256_COLOR = new Color();
+	static final Color TILE_512_COLOR = new Color();
+	static final Color TILE_1024_COLOR = new Color();
+	static final Color TILE_2048_COLOR = new Color();
+	static final Color TILE_4096_COLOR = new Color();
+	static final Color TILE_8192_COLOR = new Color();
+	static final Color TILE_16384_COLOR = new Color();
+	static final Color TILE_32768_COLOR = new Color();
+	static final Color TILE_65536_COLOR = new Color();*/
 	
+	static final double TILE_RATIO = 0.2;
+	static final double TILE_SPACING = (1 - (TILE_RATIO * 4))/5;
+	Color tileColor;
 	 
-	Tile(int powerOfTwo) {
-		setSize(100, 100);
+	Tile(int boardSize, int powerOfTwo) {
+		setSize((int)(boardSize * TILE_RATIO), (int)(boardSize * TILE_RATIO));
 		setBackground(colorFromPower(powerOfTwo));
+		tileColor = colorFromPower(powerOfTwo);
 	}
 
 
@@ -26,6 +41,7 @@ public class Tile extends Canvas {
 		}
 	}
 	
+
 
 	
 }
