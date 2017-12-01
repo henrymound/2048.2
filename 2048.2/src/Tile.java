@@ -53,7 +53,7 @@ public class Tile extends Canvas {
 	public void canMove(char c) {
 		switch(c) {
 		case 'w':{
-			if((!(yCoord - 1 < 0)) && Board.board[yCoord - 1][xCoord] == null) {
+			if(canMoveUp()) {
 	  			System.out.println("Can move");
 	  			Tile[][] tempArray = Board.board;
 	  			tempArray[yCoord - 1][xCoord] = this;
@@ -69,7 +69,7 @@ public class Tile extends Canvas {
 			break;
 		}
 		case 's':{
-			if((!(yCoord + 1 > 3)) && Board.board[yCoord + 1][xCoord] == null) {
+			if(canMoveDown()) {
 	  			System.out.println("Can move");
 	  			Tile[][] tempArray = Board.board;
 	  			tempArray[yCoord + 1][xCoord] = this;
@@ -85,7 +85,7 @@ public class Tile extends Canvas {
 		}
 
 		case 'd':{
-			if((!(xCoord + 1 > 3)) && Board.board[yCoord][xCoord + 1] == null) {
+			if(canMoveRight()) {
 	  			System.out.println("Can move");
 	  			Tile[][] tempArray = Board.board;
 	  			tempArray[yCoord][xCoord + 1] = this;
@@ -103,7 +103,7 @@ public class Tile extends Canvas {
 
 		case 'a':{
 
-			if((!(xCoord - 1 < 0)) && Board.board[xCoord][xCoord - 1] == null) {
+			if(canMoveLeft()) {
 	  			System.out.println("Can move");
 	  			Tile[][] tempArray = Board.board;
 	  			tempArray[yCoord][xCoord - 1] = this;
@@ -115,7 +115,81 @@ public class Tile extends Canvas {
 	  		}else if((xCoord - 1 < 0)){
 	  			System.out.println("Cant move because yCoord is less than 0");
 	  		}
-			
+			break;
+		}
+		
+
+		case 'q':{
+
+			if(canMoveUp() && canMoveLeft()) {
+	  			System.out.println("Can move");
+	  			Tile[][] tempArray = Board.board;
+	  			tempArray[yCoord - 1][xCoord - 1] = this;
+	  			tempArray[yCoord][xCoord] = null;
+	  			xCoord -= 1;
+	  			yCoord -= 1;
+	  			Board.board = tempArray;
+	  			main.mainBoard.repaint();
+	  			printArray(Board.board);
+	  		}else if((xCoord - 1 < 0)){
+	  			System.out.println("Cant move because yCoord is less than 0");
+	  		}
+			break;
+		}
+
+
+		case 'e':{
+
+			if(canMoveUp() && canMoveRight()) {
+	  			System.out.println("Can move");
+	  			Tile[][] tempArray = Board.board;
+	  			tempArray[yCoord - 1][xCoord + 1] = this;
+	  			tempArray[yCoord][xCoord] = null;
+	  			xCoord += 1;
+	  			yCoord -= 1;
+	  			Board.board = tempArray;
+	  			main.mainBoard.repaint();
+	  			printArray(Board.board);
+	  		}else if((xCoord - 1 < 0)){
+	  			System.out.println("Cant move because yCoord is less than 0");
+	  		}
+			break;
+		}
+		
+		case 'c':{
+
+			if(canMoveDown() && canMoveRight()) {
+	  			System.out.println("Can move");
+	  			Tile[][] tempArray = Board.board;
+	  			tempArray[yCoord + 1][xCoord + 1] = this;
+	  			tempArray[yCoord][xCoord] = null;
+	  			xCoord += 1;
+	  			yCoord += 1;
+	  			Board.board = tempArray;
+	  			main.mainBoard.repaint();
+	  			printArray(Board.board);
+	  		}else if((xCoord - 1 < 0)){
+	  			System.out.println("Cant move because yCoord is less than 0");
+	  		}
+			break;
+		}
+		
+		case 'z':{
+
+			if(canMoveDown() && canMoveLeft()) {
+	  			System.out.println("Can move");
+	  			Tile[][] tempArray = Board.board;
+	  			tempArray[yCoord + 1][xCoord - 1] = this;
+	  			tempArray[yCoord][xCoord] = null;
+	  			xCoord -= 1;
+	  			yCoord += 1;
+	  			Board.board = tempArray;
+	  			main.mainBoard.repaint();
+	  			printArray(Board.board);
+	  		}else if((xCoord - 1 < 0)){
+	  			System.out.println("Cant move because yCoord is less than 0");
+	  		}
+			break;
 		}
 			
 		}
@@ -124,6 +198,21 @@ public class Tile extends Canvas {
 		justMoved = true;
 	    System.out.println(c);
 	      
+	}
+
+	public boolean canMoveLeft() {
+		return ((!(xCoord - 1 < 0)) && Board.board[yCoord][xCoord - 1] == null);
+		
+	}
+	public boolean canMoveRight() {
+		return ((!(xCoord + 1 > 3)) && Board.board[yCoord][xCoord + 1] == null);
+	}
+	public boolean canMoveUp() {
+		return ((!(yCoord - 1 < 0)) && Board.board[yCoord - 1][xCoord] == null);
+		
+	}
+	public boolean canMoveDown() {
+		return ((!(yCoord + 1 > 3)) && Board.board[yCoord + 1][xCoord] == null);
 	}
 	
 	public static void printArray(Tile[][] matrix) {

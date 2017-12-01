@@ -23,7 +23,7 @@ public class Board extends Canvas{
 		int xRand = (int)(Math.random() * 4);
 		int yRand = (int)(Math.random() * 4);
 		int powerRand = (int)(Math.random() * 2) + 1;
-		board[3][xRand] = new Tile(powerRand, xRand, 3);
+		board[yRand][xRand] = new Tile(powerRand, xRand, yRand);
 		
 	}
 	

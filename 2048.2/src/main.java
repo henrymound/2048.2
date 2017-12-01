@@ -41,13 +41,35 @@ public class main extends Applet implements KeyListener{//implements ActionListe
 		
 	}
 	
-	   public void keyPressed( KeyEvent e ) { }
+	   public void keyPressed( KeyEvent e ) { 
+		      int keyCode = e.getKeyCode();
+
+		      switch( keyCode ) { 
+		        case KeyEvent.VK_UP:
+		        		mainBoard.move('w');
+		            break;
+		        case KeyEvent.VK_DOWN:
+		        		mainBoard.move('s');
+		            break;
+		        case KeyEvent.VK_LEFT:
+		        		mainBoard.move('a');
+		            break;
+		        case KeyEvent.VK_RIGHT :
+		        		mainBoard.move('d');
+		            break;
+		            }
+		   
+	   }
 	   public void keyReleased( KeyEvent e ) { }
 	   public void keyTyped( KeyEvent e ) {
 	      char c = e.getKeyChar();
+	
 	      if ( c != KeyEvent.CHAR_UNDEFINED ) {
+	    	  
 	    	  	 mainBoard.move(c);
 	         e.consume();
+	      }else {
+	    	  System.out.println("Char undefined");
 	      }
 	   }
 
