@@ -8,32 +8,34 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.*; 
 
-<<<<<<< HEAD
-public class main extends Applet {//implements ActionListener 
+public class main extends Applet {//implements ActionListener implements KeyListener
 	
 	static final int BOARD_SIZE = 500;
+	static final int APPLET_SIZE = 650;
 	
-	
-	public void init() {
-		
-		Board mainBoard = new Board(BOARD_SIZE);
-		add(mainBoard);
-		
-		setBackground(Color.red);
-
-		
-=======
-public class main extends Applet{ // implements ActionListener implements KeyListener
-
 	public void init() {
 		
 		Board mainBoard = new Board();
+		Panel boardPanel = new Panel();
+		BorderLayout mainLayout = new BorderLayout();
+		setLayout(mainLayout);
+		boardPanel.setSize(BOARD_SIZE, BOARD_SIZE);
+		boardPanel.add(mainBoard);
+		add(boardPanel, BorderLayout.CENTER);
+
+		Panel titlePanel = new Panel();
 		
->>>>>>> sam
 		
+		Label titleLabel = new Label("2048.2", Label.CENTER);
+		titleLabel.setFont(new Font("Helvetica", Font.BOLD, 30));
+		titleLabel.setForeground(Color.WHITE);
 		
+		titleLabel.setForeground(Color.WHITE);
+		titlePanel.add(titleLabel);
+		add(titlePanel, BorderLayout.NORTH);
 		
-		setSize(500, 500);
+		setBackground(Color.gray);
+		setSize(APPLET_SIZE, APPLET_SIZE);
+		
 	}
-	
 }

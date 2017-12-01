@@ -18,17 +18,12 @@ public class Tile extends Canvas {
 	static final Color TILE_32768_COLOR = new Color();
 	static final Color TILE_65536_COLOR = new Color();*/
 	
-<<<<<<< HEAD
 	static final double TILE_RATIO = 0.2;
-	
+	static final double TILE_SPACING = (1 - (TILE_RATIO * 4))/5;
 	Color tileColor;
 	 
 	Tile(int boardSize, int powerOfTwo) {
 		setSize((int)(boardSize * TILE_RATIO), (int)(boardSize * TILE_RATIO));
-=======
-	Tile(int powerOfTwo) {
-		setSize(100, 100);
->>>>>>> sam
 		setBackground(colorFromPower(powerOfTwo));
 		tileColor = colorFromPower(powerOfTwo);
 	}
