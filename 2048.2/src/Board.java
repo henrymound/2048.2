@@ -16,14 +16,19 @@ public class Board extends Canvas{
 		paint(this.getGraphics());
 	}
 	
-	Board(){
-		setSize(500, 500);
-		setBackground(Color.darkGray);
+	public void spawnRandTile() {
 
 		int xRand = (int)(Math.random() * 4);
 		int yRand = (int)(Math.random() * 4);
 		int powerRand = (int)(Math.random() * 2) + 1;
 		board[yRand][xRand] = new Tile(powerRand, xRand, yRand);
+	}
+	
+	Board(){
+		setSize(500, 500);
+		setBackground(Color.darkGray);
+
+		spawnRandTile();
 		
 	}
 	
@@ -88,6 +93,7 @@ public class Board extends Canvas{
 	  	  			 }
 	  			 }
 	  		 }
+	  	spawnRandTile();
 	  	 
 
 	   }
