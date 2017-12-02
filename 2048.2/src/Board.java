@@ -17,11 +17,19 @@ public class Board extends Canvas{
 	}
 	
 	public void spawnRandTile() {
+		boolean didSpawn = false;
+		while(!didSpawn) {
+			int xRand = (int)(Math.random() * 4);
+			int yRand = (int)(Math.random() * 4);
+			int powerRand = (int)(Math.random() * 2) + 1;
+			if(board[yRand][xRand] == null) {
+				board[yRand][xRand] = new Tile(powerRand, xRand, yRand);
+				didSpawn = true;
+			}
+			
+		}
 
-		int xRand = (int)(Math.random() * 4);
-		int yRand = (int)(Math.random() * 4);
-		int powerRand = (int)(Math.random() * 2) + 1;
-		board[yRand][xRand] = new Tile(powerRand, xRand, yRand);
+		
 	}
 	
 	Board(){
@@ -75,16 +83,58 @@ public class Board extends Canvas{
 	
 
 	   public void move( char c ) {
+		   switch(c) {
+		   case 'w':{
+		  	  	 for(int y = 0; y < 4; y++) {
+		  	  		 for(int x = 0; x < 4; x++) {
+		  	  			 if(board[y][x] != null){
+		  	  				 System.out.println("Checking if tile at ("+y+", "+x+") can move");
+		  	  				 
+		  	  				 board[y][x].canMove(c);
+		  	  			 }
+		  	  		 }
+		  	  	 }
+		   }
+		   case 'a':{
+		  	  	 for(int x = 0; x < 4; x++) {
+		  	  		 for(int y = 0; y < 4; y++) {
+		  	  			 if(board[y][x] != null){
+		  	  				 System.out.println("Checking if tile at ("+y+", "+x+") can move");
+		  	  				 
+		  	  				 board[y][x].canMove(c);
+		  	  			 }
+		  	  		 }
+		  	  	 }
+			   
+		   }
+		   case 's':{
+		  	  	 for(int y = 3; y >= 0; y--) {
+		  	  		 for(int x = 3; x >= 0; x--) {
+		  	  			 if(board[y][x] != null){
+		  	  				 System.out.println("Checking if tile at ("+y+", "+x+") can move");
+		  	  				 
+		  	  				 board[y][x].canMove(c);
+		  	  			 }
+		  	  		 }
+		  	  	 }
+		   }
+		   case 'd':{
+		  	  	 for(int x = 3; x >= 0; x--) {
+		  	  		 for(int y = 3; y >= 0; y--) {
+		  	  			 if(board[y][x] != null){
+		  	  				 System.out.println("Checking if tile at ("+y+", "+x+") can move");
+		  	  				 
+		  	  				 board[y][x].canMove(c);
+		  	  			 }
+		  	  		 }
+		  	  	 }
+			   
+		   }
+		   default: {
+			   
+		   }
+		   }
 
-  	  	 for(int y = 0; y < 4; y++) {
-  	  		 for(int x = 0; x < 4; x++) {
-  	  			 if(board[y][x] != null && !board[y][x].justMoved){
-  	  				 System.out.println("Checking if tile at ("+y+", "+x+") can move");
-  	  				 
-  	  				 board[y][x].canMove(c);
-  	  			 }
-  	  		 }
-  	  	 }
 
 	  	 for(int y = 0; y < 4; y++) {
 	  		 for(int x = 0; x < 4; x++) {
