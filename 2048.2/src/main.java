@@ -4,16 +4,16 @@
 // 2048.2
 
 import java.applet.*;
+import javax.swing.JOptionPane;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*; 
-
+import javax.swing.JComponent;
 public class main extends Applet implements KeyListener{//implements ActionListener implements KeyListener
 	
 	static final int BOARD_SIZE = 500;
 	static final int APPLET_SIZE = 650;
 	static Board mainBoard; 
-	static int end_key_count = 0;
 	
 	public void init() {
 		mainBoard = new Board();
@@ -50,38 +50,51 @@ public class main extends Applet implements KeyListener{//implements ActionListe
 		      if ( c != KeyEvent.CHAR_UNDEFINED ) {
 		    	  	mainBoard.tileNotMoved();
 		    	  	mainBoard.moveTry(c);
-		    	  	main.mainBoard.repaint();
-		    	  	if (mainBoard.board_full == true) {
-		    	  		if (end_key_count < 1) {
-		    	  			repaint();
-		    	  			end_key_count++;
-		    	  		} else {
-		    	  			mainBoard.repaint_end();
-		    	  		}
-				     }
-		         e.consume();
-		      } else {
+		    	  	
+		 
+		      }else {
 		    	  System.out.println("Char undefined");
 		      }
-		      
-		    /*  
-			int keyCode = e.getKeyCode();
-	
-			switch (keyCode) {
-			case KeyEvent.VK_UP:
-				mainBoard.move('w');
-				break;
-			case KeyEvent.VK_DOWN:
-				mainBoard.move('s');
-				break;
-			case KeyEvent.VK_LEFT:
-				mainBoard.move('a');
-				break;
-			case KeyEvent.VK_RIGHT:
-				mainBoard.move('d');
-				break;
-			}
-		   */
+		      e.consume();
+				
+		      int keyCode = e.getKeyCode();
+				
+				switch (keyCode) {
+				case KeyEvent.VK_UP:
+					mainBoard.moveTry('w');
+					break;
+				case KeyEvent.VK_DOWN:
+					mainBoard.moveTry('s');
+					break;
+				case KeyEvent.VK_LEFT:
+					mainBoard.moveTry('a');
+					break;
+				case KeyEvent.VK_RIGHT:
+					mainBoard.moveTry('d');
+					break;
+				}		      
+
+	    	  	main.mainBoard.repaint();
+	    	  	
+	    	  	//Check if game is over
+	    	  	boolean gameOver = true;
+	    	  	if(mainBoard.is_Full()) {
+	    	  		for(int y = 0; y < 4; y++) {
+			  	  		 for(int x = 0; x < 4; x++) {
+			  	  			 if(!(mainBoard.board[y][x].canMoveLeft()) &&
+			  	  				!(mainBoard.board[y][x].canMoveDown()) &&	 
+			  	  				!(mainBoard.board[y][x].canMoveRight()) &&
+			  	  				!(mainBoard.board[y][x].canMoveUp())){
+			  	  			 }else {
+			  	  				 gameOver = false;
+			  	  			 }
+			  	  		 }
+			  	  	 }
+	    	  		if(gameOver == true) {
+	    	  			JOptionPane.showMessageDialog(null, "Game Over");
+	    	  		}
+	    	  	}
+
 		     
 	   }
 	   public void keyReleased( KeyEvent e ) { }
