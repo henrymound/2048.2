@@ -74,12 +74,12 @@ public class Board extends Canvas{
 							 		yCoord,
 							 		(int)(main.BOARD_SIZE * Tile.TILE_RATIO), 
 							 		(int)(main.BOARD_SIZE * Tile.TILE_RATIO), 20, 20);
-					 g.setColor(Color.white);
-					 g.setFont(new Font("Helvetica", Font.BOLD, 30));
+					 g.setColor(board[i][x].textColorFromPower(board[i][x].power));
+					 g.setFont(new Font("Helvetica", Font.BOLD, 40));
 					 
 					 int tileCenterX = (xCoord + (int)(main.BOARD_SIZE * Tile.TILE_RATIO)/2);
 					 int tileCenterY = (yCoord + (int)(main.BOARD_SIZE * Tile.TILE_RATIO)/2);
-					 Rectangle2D titleOffset = (new Font("Helvetica", Font.BOLD, 30).getStringBounds(board[i][x].titleText + "", ((Graphics2D) g).getFontRenderContext()));
+					 Rectangle2D titleOffset = (new Font("Helvetica", Font.BOLD, 40).getStringBounds(board[i][x].titleText + "", ((Graphics2D) g).getFontRenderContext()));
 					 
 					 g.drawString(board[i][x].titleText + "",
 							 	tileCenterX - (int) titleOffset.getWidth()/2,

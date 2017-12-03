@@ -7,19 +7,19 @@ import java.awt.event.KeyEvent;
 import java.lang.*;
 
 public class Tile extends Canvas {
-	static final Color TILE_2_COLOR = new Color(236,218,195);
-	static final Color TILE_4_COLOR = new Color(223,177,21);
-	static final Color TILE_8_COLOR = new Color(233, 130, 75);
-	static final Color TILE_16_COLOR = new Color(244, 112, 85);
-	static final Color TILE_32_COLOR = new Color(231, 78, 51);
-	/*static final Color TILE_64_COLOR = new Color();
-	static final Color TILE_128_COLOR = new Color();
-	static final Color TILE_256_COLOR = new Color();
-	static final Color TILE_512_COLOR = new Color();
-	static final Color TILE_1024_COLOR = new Color();
-	static final Color TILE_2048_COLOR = new Color();
-	static final Color TILE_4096_COLOR = new Color();
-	static final Color TILE_8192_COLOR = new Color();
+	static final Color TILE_2_COLOR = new Color(234,227,217);
+	static final Color TILE_4_COLOR = new Color(232,223,201);
+	static final Color TILE_8_COLOR = new Color(225,175,123);
+	static final Color TILE_16_COLOR = new Color(222, 148, 103);
+	static final Color TILE_32_COLOR = new Color(218, 123, 97);
+	static final Color TILE_64_COLOR = new Color(215, 95, 63);
+	static final Color TILE_128_COLOR = new Color(227, 203, 106);
+	static final Color TILE_256_COLOR = new Color(229, 206, 118);
+	static final Color TILE_512_COLOR = new Color(219, 190, 61);
+	static final Color TILE_1024_COLOR = new Color(215, 182, 49);
+	static final Color TILE_2048_COLOR = new Color(225, 193, 67);
+	static final Color TILE_4096_COLOR = new Color(143, 217, 248);
+	/*static final Color TILE_8192_COLOR = new Color();
 	static final Color TILE_16384_COLOR = new Color();
 	static final Color TILE_32768_COLOR = new Color();
 	static final Color TILE_65536_COLOR = new Color();*/
@@ -62,7 +62,22 @@ public class Tile extends Canvas {
 	        case 3:  return TILE_8_COLOR;
 	        case 4:  return TILE_16_COLOR;
 	        case 5:  return TILE_32_COLOR;
+	        case 6:  return TILE_64_COLOR;
+	        case 7:  return TILE_128_COLOR;
+	        case 8:  return TILE_256_COLOR;
+	        case 9:  return TILE_512_COLOR;
+	        case 10:  return TILE_1024_COLOR;
+	        case 11:  return TILE_2048_COLOR;
+	        case 12:  return TILE_4096_COLOR;
 	        default: return Color.black;
+		}
+	}
+	
+	public Color textColorFromPower(int power) {
+		if(power > 2) {
+			return Color.white;
+		}else {
+			return new Color(116, 109, 101);
 		}
 	}
 	

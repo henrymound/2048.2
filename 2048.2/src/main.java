@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.*; 
 import javax.swing.JComponent;
+
 public class main extends Applet implements KeyListener{//implements ActionListener implements KeyListener
 	
 	static final int BOARD_SIZE = 500;
