@@ -1,3 +1,7 @@
+// Henry Mound and Sam Naumann
+// Section B
+
+// 2048.2
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.lang.*;
