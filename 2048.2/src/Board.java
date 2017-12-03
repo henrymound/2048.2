@@ -9,6 +9,7 @@ public class Board extends Canvas{
 	//instance variables
 	public static Tile[][] board = new Tile[4][4];
 	boolean board_full = false;
+	boolean tileHasMoved = false;
 	
 	//constructor
 	
@@ -16,15 +17,20 @@ public class Board extends Canvas{
 		paint(this.getGraphics());
 	}
 	
+	public void repaint_end() {
+		paint_end(this.getGraphics());
+	}
+	
 	public void spawnRandTile() {
 		boolean didSpawn = false;
-		while(!didSpawn) {
+		while(!didSpawn && board_full == false) {
 			int xRand = (int)(Math.random() * 4);
 			int yRand = (int)(Math.random() * 4);
 			int powerRand = (int)(Math.random() * 2) + 1;
 			if(board[yRand][xRand] == null) {
-				board[yRand][xRand] = new Tile(powerRand, xRand, yRand);
+				board[yRand][xRand] = new Tile(powerRand, yRand, xRand);
 				didSpawn = true;
+				System.out.println("Spawned new tile at ("+yRand+", "+xRand+")");
 			}
 			
 		}
@@ -40,7 +46,11 @@ public class Board extends Canvas{
 		
 	}
 	
-	
+	public void paint_end(Graphics g) {
+		Dimension d = getSize();
+		g.setColor(Color.DARK_GRAY);
+		g.fillRect(0, 0, d.width, d.height);//Clear board;
+	}
 	public void paint(Graphics g){
 		Dimension d = getSize();
 		g.setColor(Color.DARK_GRAY);
@@ -82,29 +92,31 @@ public class Board extends Canvas{
 	
 	
 
-	   public void move( char c ) {
+	   public void moveTry( char c ) {
 		   switch(c) {
 		   case 'w':{
 		  	  	 for(int y = 0; y < 4; y++) {
 		  	  		 for(int x = 0; x < 4; x++) {
 		  	  			 if(board[y][x] != null){
 		  	  				 System.out.println("Checking if tile at ("+y+", "+x+") can move");
-		  	  				 
+		  	  				
 		  	  				 board[y][x].canMove(c);
 		  	  			 }
 		  	  		 }
 		  	  	 }
+		  	  	 break;
 		   }
 		   case 'a':{
 		  	  	 for(int x = 0; x < 4; x++) {
 		  	  		 for(int y = 0; y < 4; y++) {
 		  	  			 if(board[y][x] != null){
 		  	  				 System.out.println("Checking if tile at ("+y+", "+x+") can move");
-		  	  				 
+		  	  				
 		  	  				 board[y][x].canMove(c);
 		  	  			 }
 		  	  		 }
 		  	  	 }
+		  	  	 break;
 			   
 		   }
 		   case 's':{
@@ -112,41 +124,58 @@ public class Board extends Canvas{
 		  	  		 for(int x = 3; x >= 0; x--) {
 		  	  			 if(board[y][x] != null){
 		  	  				 System.out.println("Checking if tile at ("+y+", "+x+") can move");
-		  	  				 
+		  	  				
 		  	  				 board[y][x].canMove(c);
 		  	  			 }
 		  	  		 }
 		  	  	 }
+		  	  	 break;
 		   }
 		   case 'd':{
 		  	  	 for(int x = 3; x >= 0; x--) {
 		  	  		 for(int y = 3; y >= 0; y--) {
 		  	  			 if(board[y][x] != null){
 		  	  				 System.out.println("Checking if tile at ("+y+", "+x+") can move");
-		  	  				 
+		  	  				
 		  	  				 board[y][x].canMove(c);
 		  	  			 }
 		  	  		 }
 		  	  	 }
+		  	  	break;
 			   
 		   }
 		   default: {
 			   
 		   }
+		   
 		   }
 
 
-	  	 for(int y = 0; y < 4; y++) {
+	  	 /*for(int y = 0; y < 4; y++) {
 	  		 for(int x = 0; x < 4; x++) {
 	  	  			 if(board[y][x] != null){
 		  				 board[y][x].justMoved = false;
 	  	  			 }
 	  			 }
-	  		 }
-	  	spawnRandTile();
+	  		 }*/
+		   System.out.println(tileHasMoved);
+		   if (tileHasMoved == true) {
+			   System.out.println("move testing");
+			   spawnRandTile(); 
+		   }
+		   
+		   
+		  
 	  	 
 
 	   }
+	
+	public void tileMoved() {
+		tileHasMoved = true;
+	}
+	public void tileNotMoved() {
+		tileHasMoved = false;
+	}
 	
 	public boolean is_Full() {
 		for (int i = 0; i < 4; i++) {

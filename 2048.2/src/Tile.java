@@ -31,9 +31,9 @@ public class Tile extends Canvas {
 	int xCoord;
 	int yCoord; 
 	int power;
-	boolean justMoved = false;
+
 	
-	Tile(int powerOfTwo, int xCoord, int yCoord) {
+	Tile(int powerOfTwo, int yCoord, int xCoord) {
 		setSize((int)(main.BOARD_SIZE * TILE_RATIO), (int)(main.BOARD_SIZE * TILE_RATIO));
 		setBackground(colorFromPower(powerOfTwo));
 		tileColor = colorFromPower(powerOfTwo);
@@ -41,6 +41,16 @@ public class Tile extends Canvas {
 		this.xCoord = xCoord;
 		power = powerOfTwo;
 		this.yCoord = yCoord;
+	}
+	
+	Tile(Tile tileToCopy){
+		setSize((int)(main.BOARD_SIZE * TILE_RATIO), (int)(main.BOARD_SIZE * TILE_RATIO));
+		setBackground(colorFromPower(tileToCopy.power));
+		tileColor = colorFromPower(tileToCopy.power);
+		titleText = (int) Math.pow(2, tileToCopy.power);
+		this.xCoord = tileToCopy.xCoord;
+		power = tileToCopy.power;
+		this.yCoord = tileToCopy.yCoord;
 	}
 
 
@@ -60,22 +70,29 @@ public class Tile extends Canvas {
 		switch(c) {
 		case 'w':{
 			while(canMoveUp()) {
-	  			System.out.println("Can move");
+				main.mainBoard.tileMoved();
+	  			System.out.println("Can move with ("+yCoord+", "+xCoord+")");
 	  			Tile[][] tempArray = Board.board;
-	  			if(Board.board[yCoord - 1][xCoord] != null && Board.board[yCoord - 1][xCoord].power == this.power) {
-	  				this.power++;
-	  			}
-	  				Board.board[yCoord - 1][xCoord] = this;
-	  				Board.board[yCoord][xCoord] = null;
+	  			if(tempArray[yCoord - 1][xCoord] != null &&
+	  				tempArray[yCoord - 1][xCoord].power == tempArray[yCoord][xCoord].power) {
+	  				tempArray[yCoord - 1][xCoord] = new Tile(this.power + 1, yCoord - 1, xCoord);
+	  			}else {
+		  			tempArray[yCoord - 1][xCoord] = tempArray[yCoord][xCoord];
+		  		}
+	  			tempArray[yCoord][xCoord] = null;
 	  			yCoord -= 1;
+	  			Board.board = tempArray;
 	  			printArray(Board.board);
 	  		}
-			
+
 			break;
-		}
+	  	}
+			
+		
 		case 's':{
 			while(canMoveDown()) {
-	  			System.out.println("Can move");
+				main.mainBoard.tileMoved();
+	  			System.out.println("Can move with ("+yCoord+", "+xCoord+")");
 	  			Tile[][] tempArray = Board.board;
 	  			if(tempArray[yCoord + 1][xCoord] != null && tempArray[yCoord + 1][xCoord].power == tempArray[yCoord][xCoord].power) {
 	  				tempArray[yCoord + 1][xCoord] = new Tile(this.power + 1, yCoord + 1, xCoord);
@@ -92,9 +109,14 @@ public class Tile extends Canvas {
 
 		case 'd':{
 			while(canMoveRight()) {
-	  			System.out.println("Can move");
+				main.mainBoard.tileMoved();
+	  			System.out.println("Can move with ("+yCoord+", "+xCoord+")");
 	  			Tile[][] tempArray = Board.board;
-	  			tempArray[yCoord][xCoord + 1] = this;
+	  			if(tempArray[yCoord][xCoord + 1] != null && tempArray[yCoord][xCoord + 1].power == tempArray[yCoord][xCoord].power) {
+	  				tempArray[yCoord][xCoord + 1] = new Tile(this.power + 1, yCoord, xCoord + 1);
+	  			}else {
+		  			tempArray[yCoord][xCoord + 1] = tempArray[yCoord][xCoord];
+		  		}
 	  			tempArray[yCoord][xCoord] = null;
 	  			xCoord += 1;
 	  			Board.board = tempArray;
@@ -107,9 +129,16 @@ public class Tile extends Canvas {
 		case 'a':{
 
 			while(canMoveLeft()) {
-	  			System.out.println("Can move");
+				main.mainBoard.tileMoved();
+	  			System.out.println("Can move with ("+yCoord+", "+xCoord+")");
+	  			printArray(Board.board);
+	  			//System.out.println();
 	  			Tile[][] tempArray = Board.board;
-	  			tempArray[yCoord][xCoord - 1] = this;
+	  			if(tempArray[yCoord][xCoord - 1] != null && tempArray[yCoord][xCoord - 1].power == tempArray[yCoord][xCoord].power) {
+	  				tempArray[yCoord][xCoord - 1] = new Tile(this.power + 1, yCoord, xCoord - 1);
+	  			}else {
+		  			tempArray[yCoord][xCoord - 1] = tempArray[yCoord][xCoord];
+		  		}
 	  			tempArray[yCoord][xCoord] = null;
 	  			xCoord -= 1;
 	  			Board.board = tempArray;
@@ -118,10 +147,11 @@ public class Tile extends Canvas {
 			break;
 		}
 		
-
+		/*
 		case 'q':{
 
 			while(canMoveUp() && canMoveLeft()) {
+				main.mainBoard.tileMoved();
 	  			System.out.println("Can move");
 	  			Tile[][] tempArray = Board.board;
 	  			tempArray[yCoord - 1][xCoord - 1] = this;
@@ -138,6 +168,7 @@ public class Tile extends Canvas {
 		case 'e':{
 
 			while(canMoveUp() && canMoveRight()) {
+				main.mainBoard.tileMoved();
 	  			System.out.println("Can move");
 	  			Tile[][] tempArray = Board.board;
 	  			tempArray[yCoord - 1][xCoord + 1] = this;
@@ -153,6 +184,7 @@ public class Tile extends Canvas {
 		case 'c':{
 
 			while(canMoveDown() && canMoveRight()) {
+				main.mainBoard.tileMoved();
 	  			System.out.println("Can move");
 	  			Tile[][] tempArray = Board.board;
 	  			tempArray[yCoord + 1][xCoord + 1] = this;
@@ -168,6 +200,7 @@ public class Tile extends Canvas {
 		case 'z':{
 
 			while(canMoveDown() && canMoveLeft()) {
+				main.mainBoard.tileMoved();
 	  			System.out.println("Can move");
 	  			Tile[][] tempArray = Board.board;
 	  			tempArray[yCoord + 1][xCoord - 1] = this;
@@ -179,12 +212,12 @@ public class Tile extends Canvas {
 	  		}
 			break;
 		}
-			
+		*/	
 		}
 	     
-			main.mainBoard.repaint();
+			//main.mainBoard.repaint();
 
-	    System.out.println(c);
+	    //System.out.println(c);
 	      
 	}
 
@@ -202,7 +235,8 @@ public class Tile extends Canvas {
 				);
 	}
 	public boolean canMoveUp() {
-		return ((!(yCoord - 1 < 0)) && //If not out of bounds
+		return (
+				(!(yCoord - 1 < 0)) && //If not out of bounds
 				((Board.board[yCoord - 1][xCoord] == null)// If the sqaure above is null
 				|| Board.board[yCoord - 1][xCoord].power == this.power)
 				);
@@ -210,7 +244,7 @@ public class Tile extends Canvas {
 	}
 	public boolean canMoveDown() {
 		return ((!(yCoord + 1 > 3)) && 
-				((Board.board[yCoord + 1][xCoord] == null)// If the sqaure above is null
+				((Board.board[yCoord + 1][xCoord] == null)// If the sqaure below is null
 				|| Board.board[yCoord + 1][xCoord].power == this.power)
 				);
 	}
@@ -218,9 +252,9 @@ public class Tile extends Canvas {
 	public static void printArray(Tile[][] matrix) {
 	    for (int row = 0; row < matrix.length; row++) {
 	        for (int column = 0; column < matrix[row].length; column++) {
-	            System.out.print(matrix[row][column] + " ");
+	            //System.out.print(matrix[row][column] + " ");
 	        }
-	        System.out.println();
+	        //System.out.println();
 	    }
 	}
 	

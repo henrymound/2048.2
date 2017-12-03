@@ -13,6 +13,7 @@ public class main extends Applet implements KeyListener{//implements ActionListe
 	static final int BOARD_SIZE = 500;
 	static final int APPLET_SIZE = 650;
 	static Board mainBoard; 
+	static int end_key_count = 0;
 	
 	public void init() {
 		mainBoard = new Board();
@@ -42,35 +43,57 @@ public class main extends Applet implements KeyListener{//implements ActionListe
 	}
 	
 	   public void keyPressed( KeyEvent e ) { 
-		      int keyCode = e.getKeyCode();
-
-		      switch( keyCode ) { 
-		        case KeyEvent.VK_UP:
-		        		mainBoard.move('w');
-		            break;
-		        case KeyEvent.VK_DOWN:
-		        		mainBoard.move('s');
-		            break;
-		        case KeyEvent.VK_LEFT:
-		        		mainBoard.move('a');
-		            break;
-		        case KeyEvent.VK_RIGHT :
-		        		mainBoard.move('d');
-		            break;
-		            }
-		   
+		   	
+		   	mainBoard.board_full = mainBoard.is_Full();
+			char c = e.getKeyChar();
+			
+		      if ( c != KeyEvent.CHAR_UNDEFINED ) {
+		    	  	mainBoard.tileNotMoved();
+		    	  	mainBoard.moveTry(c);
+		    	  	main.mainBoard.repaint();
+		    	  	if (mainBoard.board_full == true) {
+		    	  		if (end_key_count < 1) {
+		    	  			repaint();
+		    	  			end_key_count++;
+		    	  		} else {
+		    	  			mainBoard.repaint_end();
+		    	  		}
+				     }
+		         e.consume();
+		      } else {
+		    	  System.out.println("Char undefined");
+		      }
+		      
+		    /*  
+			int keyCode = e.getKeyCode();
+	
+			switch (keyCode) {
+			case KeyEvent.VK_UP:
+				mainBoard.move('w');
+				break;
+			case KeyEvent.VK_DOWN:
+				mainBoard.move('s');
+				break;
+			case KeyEvent.VK_LEFT:
+				mainBoard.move('a');
+				break;
+			case KeyEvent.VK_RIGHT:
+				mainBoard.move('d');
+				break;
+			}
+		   */
+		     
 	   }
 	   public void keyReleased( KeyEvent e ) { }
 	   public void keyTyped( KeyEvent e ) {
-	      char c = e.getKeyChar();
+	      /*char c = e.getKeyChar();
 	
 	      if ( c != KeyEvent.CHAR_UNDEFINED ) {
-	    	  
-	    	  	 mainBoard.move(c);
+	    	  	mainBoard.move(c);
 	         e.consume();
-	      }else {
+	      } else {
 	    	  System.out.println("Char undefined");
-	      }
+	      }*/
 	   }
 
 
