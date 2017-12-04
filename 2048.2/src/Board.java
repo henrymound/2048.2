@@ -14,6 +14,7 @@ public class Board extends Canvas{
 	//constructor
 	
 	public void repaint() {
+		
 		paint(this.getGraphics());
 	}
 	
@@ -64,6 +65,7 @@ public class Board extends Canvas{
 			 
 			 for(int x = 0; x < board[i].length; x++) {
 				 if(board[i][x] != null) {
+					 board[i][x].tileColor = board[i][x].colorFromPower(board[i][x].power);
 					 int xCoord = (int)(main.BOARD_SIZE * (1 - (Tile.TILE_RATIO * (5 - x)))) +  
 						      (int)((x + 1) * Tile.TILE_SPACING * main.BOARD_SIZE);
 

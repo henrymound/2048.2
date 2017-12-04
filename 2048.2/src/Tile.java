@@ -7,12 +7,14 @@ import java.awt.event.KeyEvent;
 import java.lang.*;
 
 public class Tile extends Canvas {
-	static final Color TILE_2_COLOR = new Color(234,227,217);
-	static final Color TILE_4_COLOR = new Color(232,223,201);
-	static final Color TILE_8_COLOR = new Color(225,175,123);
-	static final Color TILE_16_COLOR = new Color(222, 148, 103);
-	static final Color TILE_32_COLOR = new Color(218, 123, 97);
-	static final Color TILE_64_COLOR = new Color(215, 95, 63);
+	static  Color TILE_2_COLOR = new Color(234,227,217);
+	static Color TILE_4_COLOR = new Color(232,223,201);
+	static Color TILE_8_COLOR = new Color(225,175,123);
+	static Color TILE_16_COLOR = new Color(222, 148, 103);
+	static Color TILE_32_COLOR = new Color(218, 123, 97);
+	static Color TILE_64_COLOR = new Color(215, 95, 63);
+	static Color themeTextColor = Color.white;
+	static Color themeBefore2 = new Color(116, 109, 101);
 	static final Color TILE_128_COLOR = new Color(227, 203, 106);
 	static final Color TILE_256_COLOR = new Color(229, 206, 118);
 	static final Color TILE_512_COLOR = new Color(219, 190, 61);
@@ -75,9 +77,9 @@ public class Tile extends Canvas {
 	
 	public Color textColorFromPower(int power) {
 		if(power > 2) {
-			return Color.white;
+			return themeTextColor;
 		}else {
-			return new Color(116, 109, 101);
+			return themeBefore2;
 		}
 	}
 	
@@ -91,6 +93,7 @@ public class Tile extends Canvas {
 	  			if(tempArray[yCoord - 1][xCoord] != null &&
 	  				tempArray[yCoord - 1][xCoord].power == tempArray[yCoord][xCoord].power) {
 	  				tempArray[yCoord - 1][xCoord] = new Tile(this.power + 1, yCoord - 1, xCoord);
+	  				main.score += Math.pow(2, this.power + 1);
 	  			}else {
 		  			tempArray[yCoord - 1][xCoord] = tempArray[yCoord][xCoord];
 		  		}
@@ -111,6 +114,7 @@ public class Tile extends Canvas {
 	  			Tile[][] tempArray = Board.board;
 	  			if(tempArray[yCoord + 1][xCoord] != null && tempArray[yCoord + 1][xCoord].power == tempArray[yCoord][xCoord].power) {
 	  				tempArray[yCoord + 1][xCoord] = new Tile(this.power + 1, yCoord + 1, xCoord);
+	  				main.score += Math.pow(2, this.power + 1);
 	  			}else {
 		  			tempArray[yCoord + 1][xCoord] = tempArray[yCoord][xCoord];
 		  		}
@@ -129,6 +133,7 @@ public class Tile extends Canvas {
 	  			Tile[][] tempArray = Board.board;
 	  			if(tempArray[yCoord][xCoord + 1] != null && tempArray[yCoord][xCoord + 1].power == tempArray[yCoord][xCoord].power) {
 	  				tempArray[yCoord][xCoord + 1] = new Tile(this.power + 1, yCoord, xCoord + 1);
+	  				main.score += Math.pow(2, this.power + 1);
 	  			}else {
 		  			tempArray[yCoord][xCoord + 1] = tempArray[yCoord][xCoord];
 		  		}
@@ -151,6 +156,7 @@ public class Tile extends Canvas {
 	  			Tile[][] tempArray = Board.board;
 	  			if(tempArray[yCoord][xCoord - 1] != null && tempArray[yCoord][xCoord - 1].power == tempArray[yCoord][xCoord].power) {
 	  				tempArray[yCoord][xCoord - 1] = new Tile(this.power + 1, yCoord, xCoord - 1);
+	  				main.score += Math.pow(2, this.power + 1);
 	  			}else {
 		  			tempArray[yCoord][xCoord - 1] = tempArray[yCoord][xCoord];
 		  		}
