@@ -1,10 +1,9 @@
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.geom.Rectangle2D;
 
 public class Board extends Canvas{
-	
+
+    private static final long serialVersionUID = 1L;
 
 	//instance variables
 	public static Tile[][] board = new Tile[4][4];
@@ -47,15 +46,48 @@ public class Board extends Canvas{
 		
 	}
 	
+	public void clearBoard() {
+		board = new Tile[4][4];
+	}
+	
+	public Tile[][] getBoard() {
+		return board;
+	}
+	
 	public void paint_end(Graphics g) {
 		Dimension d = getSize();
 		g.setColor(Color.DARK_GRAY);
 		g.fillRect(0, 0, d.width, d.height);//Clear board;
 	}
+	
+	public void paintGameOver() {
+		Graphics g = this.getGraphics();
+		Graphics2D g2 = (Graphics2D)g;
+	    RenderingHints rh = new RenderingHints(
+	             RenderingHints.KEY_TEXT_ANTIALIASING,
+	             RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+	    g2.setRenderingHints(rh);
+		g2.setFont(new Font("Helvetica", Font.BOLD, 60));
+		g2.setColor(Color.WHITE);
+		 int tileCenter = ((int)(main.BOARD_SIZE)/2);
+		 Rectangle2D titleOffset = (new Font("Helvetica", Font.BOLD, 60).getStringBounds("Game Over!", (g2).getFontRenderContext()));
+
+		g2.drawString("Game Over!",
+				tileCenter - (int) titleOffset.getWidth()/2,
+				tileCenter + (int) titleOffset.getHeight()/2 - 10);
+	}
+	
 	public void paint(Graphics g){
+
+		Graphics2D g2 = (Graphics2D)g;
+	    RenderingHints rh = new RenderingHints(
+	             RenderingHints.KEY_ANTIALIASING,
+	             RenderingHints.VALUE_ANTIALIAS_ON);
+	    g2.setRenderingHints(rh);
+	    
 		Dimension d = getSize();
-		g.setColor(Color.DARK_GRAY);
-		g.fillRect(0, 0, d.width, d.height);//Clear board;
+		g2.setColor(Color.DARK_GRAY);
+		g2.fillRect(0, 0, d.width, d.height);//Clear board;
 		
 		 for(int i = 0; i < board.length; i++) {
 			 int yCoord = 0;
@@ -69,21 +101,21 @@ public class Board extends Canvas{
 					 int xCoord = (int)(main.BOARD_SIZE * (1 - (Tile.TILE_RATIO * (5 - x)))) +  
 						      (int)((x + 1) * Tile.TILE_SPACING * main.BOARD_SIZE);
 
-					 g.setColor(board[i][x].tileColor);
+					 g2.setColor(board[i][x].tileColor);
 					 //g.drawRect(xCoord, yCoord, (int)(main.BOARD_SIZE * Tile.TILE_RATIO), 
 							// (int)(main.BOARD_SIZE * Tile.TILE_RATIO));
-					 g.fillRoundRect(xCoord,
+					 g2.fillRoundRect(xCoord,
 							 		yCoord,
 							 		(int)(main.BOARD_SIZE * Tile.TILE_RATIO), 
 							 		(int)(main.BOARD_SIZE * Tile.TILE_RATIO), 20, 20);
-					 g.setColor(board[i][x].textColorFromPower(board[i][x].power));
-					 g.setFont(new Font("Helvetica", Font.BOLD, 40));
+					 g2.setColor(board[i][x].textColorFromPower(board[i][x].power));
+					 g2.setFont(new Font("Helvetica", Font.BOLD, 40));
 					 
 					 int tileCenterX = (xCoord + (int)(main.BOARD_SIZE * Tile.TILE_RATIO)/2);
 					 int tileCenterY = (yCoord + (int)(main.BOARD_SIZE * Tile.TILE_RATIO)/2);
-					 Rectangle2D titleOffset = (new Font("Helvetica", Font.BOLD, 40).getStringBounds(board[i][x].titleText + "", ((Graphics2D) g).getFontRenderContext()));
+					 Rectangle2D titleOffset = (new Font("Helvetica", Font.BOLD, 40).getStringBounds(board[i][x].titleText + "", (g2).getFontRenderContext()));
 					 
-					 g.drawString(board[i][x].titleText + "",
+					 g2.drawString(board[i][x].titleText + "",
 							 	tileCenterX - (int) titleOffset.getWidth()/2,
 							 	tileCenterY + (int) titleOffset.getHeight()/2);
 				 }
@@ -146,6 +178,186 @@ public class Board extends Canvas{
 		  	  	break;
 			   
 		   }
+		   case 'e':{
+		  	  	char e = 'e';
+		  	  	if(board[3][3] != null)
+		  	  		move(board[3][3], e);
+
+		  	  	if(board[3][2] != null)
+		  	  		move(board[3][2], e);
+		  	  	if(board[2][3] != null)
+		  	  		move(board[2][3], e);
+		  	  	
+		  	  	if(board[3][1] != null)
+		  	  		move(board[3][1], e);
+		  	  	if(board[2][2] != null)
+		  	  		move(board[2][2], e);
+		  	  	if(board[1][3] != null)
+		  	  		move(board[1][3], e);
+		  	  	
+
+		  	  	if(board[3][0] != null)
+		  	  		move(board[3][0], e);
+		  	  	if(board[2][1] != null)
+		  	  		move(board[2][1], e);
+		  	  	if(board[1][2] != null)
+		  	  		move(board[1][2], e);
+		  	  	if(board[0][3] != null)
+		  	  		move(board[0][3], e);
+		  	  	
+
+		  	  	if(board[2][0] != null)
+		  	  		move(board[2][0], e);
+		  	  	if(board[1][1] != null)
+		  	  		move(board[1][1], e);
+		  	  	if(board[0][2] != null)
+		  	  		move(board[0][2], e);
+
+		  	  	if(board[1][0] != null)
+		  	  		move(board[1][0], e);
+		  	  	if(board[0][1] != null)
+		  	  		move(board[0][1], e);
+		  	  	
+		  	  	if(board[0][0] != null)
+		  	  		move(board[0][0], e);
+		  	  	 
+		  	  	break;
+			   
+		   }
+		   case 'q':{
+		  	  	char e = 'q';
+
+		  	  	if(board[0][0] != null)
+		  	  		move(board[0][0], e);
+
+		  	  	if(board[0][1] != null)
+		  	  		move(board[0][1], e);
+		  	  	if(board[1][0] != null)
+		  	  		move(board[1][0], e);
+		  	  	
+		  	  	if(board[0][2] != null)
+		  	  		move(board[0][2], e);
+		  	  	if(board[1][1] != null)
+		  	  		move(board[1][1], e);
+		  	  	if(board[2][0] != null)
+		  	  		move(board[2][0], e);
+		  	  	
+		  	  	if(board[0][3] != null)
+		  	  		move(board[0][3], e);
+		  	  	if(board[1][2] != null)
+		  	  		move(board[1][2], e);
+		  	  	if(board[2][1] != null)
+		  	  		move(board[2][1], e);
+		  	  	if(board[3][0] != null)
+		  	  		move(board[3][0], e);
+
+		  	  	if(board[1][3] != null)
+		  	  		move(board[1][3], e);
+		  	  	if(board[2][2] != null)
+		  	  		move(board[2][2], e);
+		  	  	if(board[3][1] != null)
+		  	  		move(board[3][1], e);
+
+		  	  	if(board[2][3] != null)
+		  	  		move(board[2][3], e);
+		  	  	if(board[3][2] != null)
+		  	  		move(board[3][2], e);
+
+		  	  	if(board[3][3] != null)
+		  	  		move(board[3][3], e);
+		  	  	break;
+			   
+		   }
+		   case 'c':{
+		  	  	char e = 'c';
+		  	  	if(board[3][0] != null)
+		  	  		move(board[3][0], e);
+
+		  	  	if(board[2][0] != null)
+		  	  		move(board[2][0], e);
+		  	  	if(board[3][1] != null)
+		  	  		move(board[3][1], e);
+		  	  	
+		  	  	if(board[1][0] != null)
+		  	  		move(board[1][0], e);
+		  	  	if(board[2][1] != null)
+		  	  		move(board[2][1], e);
+		  	  	if(board[3][2] != null)
+		  	  		move(board[3][2], e);
+		  	  	
+
+		  	  	if(board[0][0] != null)
+		  	  		move(board[0][0], e);
+		  	  	if(board[1][1] != null)
+		  	  		move(board[1][1], e);
+		  	  	if(board[2][2] != null)
+		  	  		move(board[2][2], e);
+		  	  	if(board[3][3] != null)
+		  	  		move(board[3][3], e);
+		  	  	
+
+		  	  	if(board[0][1] != null)
+		  	  		move(board[0][1], e);
+		  	  	if(board[1][2] != null)
+		  	  		move(board[1][2], e);
+		  	  	if(board[3][2] != null)
+		  	  		move(board[3][2], e);
+
+		  	  	if(board[0][2] != null)
+		  	  		move(board[0][2], e);
+		  	  	if(board[1][3] != null)
+		  	  		move(board[1][3], e);
+		  	  	
+		  	  	if(board[0][3] != null)
+		  	  		move(board[0][3], e);
+		  	  	 
+		  	  	break;
+			   
+		   }
+		   case 'z':{
+		  	  	char e = 'z';
+		  	  if(board[0][0] != null)
+		  	  		move(board[0][0], e);
+
+		  	  	if(board[0][1] != null)
+		  	  		move(board[0][1], e);
+		  	  	if(board[1][0] != null)
+		  	  		move(board[1][0], e);
+		  	  	
+		  	  	if(board[0][2] != null)
+		  	  		move(board[0][2], e);
+		  	  	if(board[1][1] != null)
+		  	  		move(board[1][1], e);
+		  	  	if(board[2][0] != null)
+		  	  		move(board[2][0], e);
+		  	  	
+		  	  	if(board[0][3] != null)
+		  	  		move(board[0][3], e);
+		  	  	if(board[1][2] != null)
+		  	  		move(board[1][2], e);
+		  	  	if(board[2][1] != null)
+		  	  		move(board[2][1], e);
+		  	  	if(board[3][0] != null)
+		  	  		move(board[3][0], e);
+
+		  	  	if(board[1][3] != null)
+		  	  		move(board[1][3], e);
+		  	  	if(board[2][2] != null)
+		  	  		move(board[2][2], e);
+		  	  	if(board[3][1] != null)
+		  	  		move(board[3][1], e);
+
+		  	  	if(board[2][3] != null)
+		  	  		move(board[2][3], e);
+		  	  	if(board[3][2] != null)
+		  	  		move(board[3][2], e);
+
+		  	  	if(board[3][3] != null)
+		  	  		move(board[3][3], e);
+		  	  	 
+		  	  	break;
+			   
+		   }
 		   default: {
 			   
 		   }
@@ -172,6 +384,11 @@ public class Board extends Canvas{
 
 	   }
 	
+	public void move(Tile t, char c) {
+		System.out.println("Checking if tile at ("+t.yCoord+", "+t.xCoord+") can move");
+		t.canMove(c);
+	}
+	   
 	public void tileMoved() {
 		tileHasMoved = true;
 	}

@@ -4,17 +4,15 @@
 // 2048.2
 
 import java.applet.*;
-import javax.swing.JOptionPane;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.*; 
-import javax.swing.JComponent;
-import javax.swing.*;
 
 
 
-public class main extends Applet implements KeyListener, ItemListener{
-	
+public class main extends Applet implements KeyListener, ItemListener, MouseListener{ 
+
+    private static final long serialVersionUID = 1L;
+    
 	static final int BOARD_SIZE = 500;
 	static final int APPLET_SIZE = 650;
 	static Font preferredFont = new Font("Helvetica", Font.PLAIN, 20);
@@ -22,44 +20,48 @@ public class main extends Applet implements KeyListener, ItemListener{
 	Checkbox classicBox; 
 	Checkbox retroBox;
 	public static int score = 0;
-	JLabel scoreLabel;
-	
+	Label scoreLabel;
+	Panel mainPanel;
+	 
 	public void init() {
+		mainPanel = new Panel();
+		mainPanel.setBackground(Color.black);
+		add(mainPanel);
         CheckboxGroup themeGroup = new CheckboxGroup();
-       
+        setBackground(Color.GRAY);
         //if you create checkboxes and add to group,they become radio buttons
-         classicBox = new Checkbox("Classic", themeGroup, true);
-         classicBox.setForeground(Color.white);
-         retroBox = new Checkbox("Retro", themeGroup, false);
-         retroBox.setForeground(Color.white);
+        classicBox = new Checkbox("Classic", themeGroup, true);
+        classicBox.setForeground(Color.white);
+        retroBox = new Checkbox("Retro", themeGroup, false);
+        retroBox.setForeground(Color.white);
 
-         scoreLabel = new JLabel("Score: 0 ");
-         scoreLabel.setForeground(Color.white);
-         scoreLabel.setFont(preferredFont);
-			scoreLabel.setHorizontalAlignment(JLabel.CENTER);
+        scoreLabel = new Label("Score: 0 ");
+        scoreLabel.setForeground(Color.white);
+        scoreLabel.setFont(preferredFont);
+		scoreLabel.setAlignment(Label.RIGHT);
 
         Panel themePanel = new Panel();
         themePanel.setLayout(new GridLayout(2, 1));
         Panel northPanel = new Panel();
-        northPanel.setLayout(new BorderLayout());
-        northPanel.add(scoreLabel, BorderLayout.EAST);
+        northPanel.setLayout(new GridLayout(1, 3));
         
         themePanel.add(classicBox);
         themePanel.add(retroBox);
         classicBox.addItemListener(this);
         retroBox.addItemListener(this);
-        northPanel.add(themePanel, BorderLayout.WEST);
+        northPanel.add(themePanel);
         //add radio buttons
        
 		
 		mainBoard = new Board();
 		Panel boardPanel = new Panel();
 		BorderLayout mainLayout = new BorderLayout();
-		setLayout(mainLayout);
+		
+		mainPanel.setLayout(mainLayout);
 		boardPanel.setSize(BOARD_SIZE, BOARD_SIZE);
 		boardPanel.add(mainBoard);
-		add(northPanel, BorderLayout.NORTH);
-		add(boardPanel, BorderLayout.CENTER);
+		mainPanel.add(northPanel, BorderLayout.NORTH);
+		mainPanel.add(boardPanel, BorderLayout.CENTER);
 		Panel titlePanel = new Panel();
 		
 		
@@ -70,12 +72,19 @@ public class main extends Applet implements KeyListener, ItemListener{
 		titleLabel.setForeground(Color.WHITE);
 		titlePanel.add(titleLabel, BorderLayout.NORTH);
 		northPanel.add(titlePanel);
-		add(northPanel, BorderLayout.NORTH);
+
+        northPanel.add(scoreLabel);
+        mainPanel.add(northPanel, BorderLayout.NORTH);
 		
-		setBackground(Color.gray);
-		setSize(APPLET_SIZE, APPLET_SIZE - 50);
+        mainPanel.setBackground(Color.GRAY);
+        mainPanel.setBackground(Color.GRAY);
+        mainPanel.setForeground(Color.GRAY);
+        
 		setFocusable(true);
 		addKeyListener(this);
+		addMouseListener(this);
+		boardPanel.addMouseListener(this);
+		mainBoard.addMouseListener(this);
         requestFocusInWindow();
         
         
@@ -115,6 +124,8 @@ public class main extends Applet implements KeyListener, ItemListener{
 				}		      
 
 			scoreLabel.setText("Score: " + score + " ");
+			scoreLabel.setAlignment(Label.RIGHT);
+
 	    	  	main.mainBoard.repaint();
 	    	  	
 	    	  	//Check if game is over
@@ -122,32 +133,33 @@ public class main extends Applet implements KeyListener, ItemListener{
 	    	  	if(mainBoard.is_Full()) {
 	    	  		for(int y = 0; y < 4; y++) {
 			  	  		 for(int x = 0; x < 4; x++) {
-			  	  			 if(!(mainBoard.board[y][x].canMoveLeft()) &&
-			  	  				!(mainBoard.board[y][x].canMoveDown()) &&	 
-			  	  				!(mainBoard.board[y][x].canMoveRight()) &&
-			  	  				!(mainBoard.board[y][x].canMoveUp())){
+			  	  			 if(!(mainBoard.getBoard()[y][x].canMoveLeft()) &&
+			  	  				!(mainBoard.getBoard()[y][x].canMoveDown()) &&	 
+			  	  				!(mainBoard.getBoard()[y][x].canMoveRight()) &&
+			  	  				!(mainBoard.getBoard()[y][x].canMoveUp())){
 			  	  			 }else {
 			  	  				 gameOver = false;
 			  	  			 }
 			  	  		 }
 			  	  	 }
 	    	  		if(gameOver == true) {
-	    	  			int input = JOptionPane.showOptionDialog(null, "Game Over", "Game Over",
-	    	  					JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
-		    	  		if(input == JOptionPane.OK_OPTION) {
-		    	  			System.out.println("Making a new board");
-		    	  			Arrays.fill(mainBoard.board, null);
-		    	  			mainBoard.board = new Tile[4][4];
-		    	  			mainBoard.spawnRandTile();
-		    	  			mainBoard.repaint();
-		    	  		}
+//	    	  			int input = JOptionPane.showOptionDialog(null, "Game Over", "Game Over",
+//	    	  					JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
+//		    	  		if(input == JOptionPane.OK_OPTION) {
+//		    	  			System.out.println("Making a new board");
+//		    	  			Arrays.fill(mainBoard.getBoard(), null);
+//		    	  			mainBoard.clearBoard();
+//		    	  			mainBoard.spawnRandTile();
+//		    	  			mainBoard.repaint();
+//		    	  		}
+	    	  			mainBoard.paintGameOver();
 
 	    	  		}
 	    	  		{
 	    	  		    // do something
 	    	  		}
 	    	  	}
-
+	    
 		     
 	   }
 	   public void keyReleased( KeyEvent e ) { }
@@ -163,15 +175,11 @@ public class main extends Applet implements KeyListener, ItemListener{
 	   }
 
 	   public void itemStateChanged(ItemEvent e) {
-	        int index = 0;
-	        char c = '-';
 	        Object source = e.getItemSelectable();
 
 	        if (source == retroBox) {
-	            index = 0;
-	            c = 'c';
 	            System.out.println("Retro Box");
-	            this.setBackground(Color.BLACK);
+	            mainPanel.setBackground(Color.BLACK);
 
 		        	Tile.TILE_2_COLOR = new Color(253,255,0);
 		        	Tile.TILE_4_COLOR = new Color(234,130,229);
@@ -184,25 +192,56 @@ public class main extends Applet implements KeyListener, ItemListener{
 		        	mainBoard.repaint();
 	            requestFocusInWindow();
 	        } else if (source == classicBox) {
-	            index = 1;
-	            c = 'g';
 	            System.out.println("Classic Box");
-
-	    		setBackground(Color.gray);
-
-	        	Tile.TILE_2_COLOR = new Color(234,227,217);
-	        	Tile.TILE_4_COLOR = new Color(232,223,201);
-	        	Tile.TILE_8_COLOR = new Color(225,175,123);
-	        	Tile.TILE_16_COLOR = new Color(222, 148, 103);
-	        	Tile.TILE_32_COLOR = new Color(218, 123, 97);
-	        	Tile.TILE_64_COLOR = new Color(215, 95, 63);
-	        	Tile.themeTextColor = Color.white;
-	        	Tile.themeBefore2 = new Color(116, 109, 101);
+	            
+	            mainPanel.setBackground(Color.gray);
+		        	Tile.TILE_2_COLOR = new Color(234,227,217);
+		        	Tile.TILE_4_COLOR = new Color(232,223,201);
+		        	Tile.TILE_8_COLOR = new Color(225,175,123);
+		        	Tile.TILE_16_COLOR = new Color(222, 148, 103);
+		        	Tile.TILE_32_COLOR = new Color(218, 123, 97);
+		        	Tile.TILE_64_COLOR = new Color(215, 95, 63);
+		        	Tile.themeTextColor = Color.white;
+		        	Tile.themeBefore2 = new Color(116, 109, 101);
 
 	        	mainBoard.repaint();
 	            requestFocusInWindow();
 	        }
 	      }
 	   
+
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		requestFocusInWindow();
+		System.out.println("Mouse pressed");
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		requestFocusInWindow();
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		requestFocusInWindow();
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		requestFocusInWindow();
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		requestFocusInWindow();
+		System.out.println("Mouse clicked");
+		
+	}	   
 
 }
