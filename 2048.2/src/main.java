@@ -6,15 +6,15 @@
 import java.applet.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.*;
 
 
-
-public class main extends Applet implements KeyListener, ItemListener, MouseListener{ 
+public class main extends Applet implements KeyListener, ItemListener, MouseListener, ActionListener{ 
 
     private static final long serialVersionUID = 1L;
     
 	static final int BOARD_SIZE = 500;
-	static final int APPLET_SIZE = 650;
+	static final int APPLET_SIZE = 700;
 	static Font preferredFont = new Font("Helvetica", Font.PLAIN, 20);
 	static Board mainBoard; 
 	Checkbox classicBox; 
@@ -22,11 +22,18 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
 	public static int score = 0;
 	Label scoreLabel;
 	Panel mainPanel;
+	Button AIPlayButton;
+	Button RestartButton;
+	boolean AIPlaying = false;
 	 
 	public void init() {
 		mainPanel = new Panel();
 		mainPanel.setBackground(Color.black);
 		add(mainPanel);
+		AIPlayButton = new Button("AI Play");
+		RestartButton = new Button("Restart");
+		AIPlayButton.addActionListener(this);
+		RestartButton.addActionListener(this);
         CheckboxGroup themeGroup = new CheckboxGroup();
         setBackground(Color.GRAY);
         //if you create checkboxes and add to group,they become radio buttons
@@ -41,12 +48,14 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
 		scoreLabel.setAlignment(Label.RIGHT);
 
         Panel themePanel = new Panel();
-        themePanel.setLayout(new GridLayout(2, 1));
+        themePanel.setLayout(new GridLayout(4, 1));
         Panel northPanel = new Panel();
         northPanel.setLayout(new GridLayout(1, 3));
         
         themePanel.add(classicBox);
         themePanel.add(retroBox);
+        themePanel.add(AIPlayButton);
+        themePanel.add(RestartButton);
         classicBox.addItemListener(this);
         retroBox.addItemListener(this);
         northPanel.add(themePanel);
@@ -77,7 +86,6 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
         mainPanel.add(northPanel, BorderLayout.NORTH);
 		
         mainPanel.setBackground(Color.GRAY);
-        mainPanel.setBackground(Color.GRAY);
         mainPanel.setForeground(Color.GRAY);
         
 		setFocusable(true);
@@ -86,7 +94,7 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
 		boardPanel.addMouseListener(this);
 		mainBoard.addMouseListener(this);
         requestFocusInWindow();
-        
+        setSize(APPLET_SIZE + 50, APPLET_SIZE - 50);
         
 		
 	}
@@ -128,40 +136,59 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
 
 	    	  	main.mainBoard.repaint();
 	    	  	
-	    	  	//Check if game is over
-	    	  	boolean gameOver = true;
-	    	  	if(mainBoard.is_Full()) {
-	    	  		for(int y = 0; y < 4; y++) {
-			  	  		 for(int x = 0; x < 4; x++) {
-			  	  			 if(!(mainBoard.getBoard()[y][x].canMoveLeft()) &&
-			  	  				!(mainBoard.getBoard()[y][x].canMoveDown()) &&	 
-			  	  				!(mainBoard.getBoard()[y][x].canMoveRight()) &&
-			  	  				!(mainBoard.getBoard()[y][x].canMoveUp())){
-			  	  			 }else {
-			  	  				 gameOver = false;
-			  	  			 }
-			  	  		 }
-			  	  	 }
-	    	  		if(gameOver == true) {
-//	    	  			int input = JOptionPane.showOptionDialog(null, "Game Over", "Game Over",
-//	    	  					JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
-//		    	  		if(input == JOptionPane.OK_OPTION) {
-//		    	  			System.out.println("Making a new board");
-//		    	  			Arrays.fill(mainBoard.getBoard(), null);
-//		    	  			mainBoard.clearBoard();
-//		    	  			mainBoard.spawnRandTile();
-//		    	  			mainBoard.repaint();
-//		    	  		}
-	    	  			mainBoard.paintGameOver();
 
-	    	  		}
-	    	  		{
-	    	  		    // do something
-	    	  		}
-	    	  	}
+	    	  	if(gameOver()) {
+    	  			mainBoard.paintGameOver();	
+    	  		}
+	    
+	    	  	
 	    
 		     
 	   }
+	   
+	   public static boolean gameOver() {
+   	  	if(mainBoard.is_Full()) {
+   	  		for(int y = 0; y < 4; y++) {
+		  	  		 for(int x = 0; x < 4; x++) {
+		  	  			 if(!(mainBoard.getBoard()[y][x].canMoveLeft()) &&
+		  	  				!(mainBoard.getBoard()[y][x].canMoveDown()) &&	 
+		  	  				!(mainBoard.getBoard()[y][x].canMoveRight()) &&	 
+		  	  				!(mainBoard.getBoard()[y][x].canMoveE()) &&	 
+		  	  				!(mainBoard.getBoard()[y][x].canMoveQ()) &&	 
+		  	  				!(mainBoard.getBoard()[y][x].canMoveZ()) &&	 
+		  	  				!(mainBoard.getBoard()[y][x].canMoveC()) &&
+		  	  				!(mainBoard.getBoard()[y][x].canMoveUp())
+		  	  				){
+		  	  			 }else {
+		  	  				 return false;
+		  	  			 }
+		  	  		 }
+		  	  	 }
+   	   	  		return true;
+   	  		}
+			return false;
+	   }
+	   
+	   public static boolean desperate() {
+	   	  		for(int y = 0; y < 4; y++) {
+			  	  		 for(int x = 0; x < 4; x++) {
+			  	  			 if(mainBoard.getBoard()[y][x] != null) {
+			  	  				if(!(mainBoard.getBoard()[y][x].canMoveLeft()) &&	 
+					  	  				!(mainBoard.getBoard()[y][x].canMoveUp()) &&	
+					  	  				!(mainBoard.getBoard()[y][x].canMoveE()) &&	  
+					  	  				!(mainBoard.getBoard()[y][x].canMoveQ())
+					  	  				){
+					  	  			 }else {
+					  	  				 return false;
+					  	  			 }
+			  	  			 }
+			  	  			 
+			  	  		 }
+			  	  	 }
+	   	   	  		return true;
+	   	  		
+		   }
+	   
 	   public void keyReleased( KeyEvent e ) { }
 	   public void keyTyped( KeyEvent e ) {
 	      /*char c = e.getKeyChar();
@@ -242,6 +269,81 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
 		requestFocusInWindow();
 		System.out.println("Mouse clicked");
 		
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		if(e.getSource() == RestartButton) {
+			mainBoard.clearBoard();
+			mainBoard.spawnRandTile();
+			mainBoard.repaint();
+		}
+		if(e.getSource() == AIPlayButton) {
+			if(AIPlaying) {
+				AIPlayButton.setLabel("AI Play");
+				AIPlaying = false;
+			}else {
+				AIPlayButton.setLabel("Stop AI Play");
+				AIPlaying = true;
+				
+				Timer t = new Timer();
+				t.schedule(new TimerTask() {
+				    @Override
+				    public void run() {
+				    	if(AIPlaying) {
+				    	for(int y = 0; y < 4; y++) {
+				  	  		 for(int x = 0; x < 4; x++) {
+				  	  			 if(mainBoard.getBoard()[y][x] != null) {
+				  	  			 
+					  	  				 if(mainBoard.getBoard()[y][x].canMoveQ()) {
+						  	  				mainBoard.moveTry('q');
+										}
+					  	  				else if(mainBoard.getBoard()[y][x].canMoveUp()) {
+					  	  				mainBoard.moveTry('w');
+									} 
+				  	  				else if(mainBoard.getBoard()[y][x].canMoveE()) {
+					  	  				mainBoard.moveTry('e');
+									}
+				  	  				else if(mainBoard.getBoard()[y][x].canMoveLeft()) {
+					  	  				mainBoard.moveTry('a');
+									} 
+				  	  				else if(desperate() && mainBoard.getBoard()[y][x] != null) {
+						  	  			
+						  	  			if(mainBoard.getBoard()[y][x].canMoveC()) {
+						  	  				mainBoard.moveTry('c');
+										} 
+						  	  			else if(mainBoard.getBoard()[y][x].canMoveZ()) {
+						  	  				mainBoard.moveTry('z');
+										} 
+						  	  			else if(mainBoard.getBoard()[y][x].canMoveRight()) {
+							  	  				mainBoard.moveTry('d');
+											}
+						  	  			else if(mainBoard.getBoard()[y][x].canMoveDown()) {
+						  	  				mainBoard.moveTry('s');
+										}
+				  	  				}
+				  	  				if(gameOver()) {
+				  	    	  				mainBoard.paintGameOver();	
+				  	    	  				AIPlaying = false;
+				  	    					AIPlayButton.setLabel("AI Play");
+				  	  				}
+
+				  	  			 }
+				  	  			
+				  	  		 }
+				    		}
+	  	  				mainBoard.repaint();
+				}
+			}
+		}, 0, 200);
+				
+				
+					
+					
+				}
+			}
+		}
 	}	   
 
-}
+

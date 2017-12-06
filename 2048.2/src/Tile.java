@@ -92,7 +92,7 @@ public class Tile extends Canvas {
 	  			System.out.println("Can move with ("+yCoord+", "+xCoord+")");
 	  			Tile[][] tempArray = Board.board;
 	  			if(tempArray[yCoord - 1][xCoord] != null &&
-	  				tempArray[yCoord - 1][xCoord].power == tempArray[yCoord][xCoord].power) {
+	  				tempArray[yCoord - 1][xCoord].power == this.power) {
 	  				tempArray[yCoord - 1][xCoord] = new Tile(this.power + 1, yCoord - 1, xCoord);
 	  				main.score += Math.pow(2, this.power + 1);
 	  			}else {
@@ -113,7 +113,7 @@ public class Tile extends Canvas {
 				main.mainBoard.tileMoved();
 	  			System.out.println("Can move with ("+yCoord+", "+xCoord+")");
 	  			Tile[][] tempArray = Board.board;
-	  			if(tempArray[yCoord + 1][xCoord] != null && tempArray[yCoord + 1][xCoord].power == tempArray[yCoord][xCoord].power) {
+	  			if(tempArray[yCoord + 1][xCoord] != null && tempArray[yCoord + 1][xCoord].power == this.power) {
 	  				tempArray[yCoord + 1][xCoord] = new Tile(this.power + 1, yCoord + 1, xCoord);
 	  				main.score += Math.pow(2, this.power + 1);
 	  			}else {
@@ -132,7 +132,7 @@ public class Tile extends Canvas {
 				main.mainBoard.tileMoved();
 	  			System.out.println("Can move with ("+yCoord+", "+xCoord+")");
 	  			Tile[][] tempArray = Board.board;
-	  			if(tempArray[yCoord][xCoord + 1] != null && tempArray[yCoord][xCoord + 1].power == tempArray[yCoord][xCoord].power) {
+	  			if(tempArray[yCoord][xCoord + 1] != null && tempArray[yCoord][xCoord + 1].power == this.power) {
 	  				tempArray[yCoord][xCoord + 1] = new Tile(this.power + 1, yCoord, xCoord + 1);
 	  				main.score += Math.pow(2, this.power + 1);
 	  			}else {
@@ -156,7 +156,7 @@ public class Tile extends Canvas {
 	  			//System.out.println();
 	  			Tile[][] tempArray = Board.board;
 	  			if(tempArray[yCoord][xCoord - 1] != null
-	  					&& tempArray[yCoord][xCoord - 1].power == tempArray[yCoord][xCoord].power) {
+	  					&& tempArray[yCoord][xCoord - 1].power == this.power) {
 	  				tempArray[yCoord][xCoord - 1] = new Tile(this.power + 1, yCoord, xCoord - 1);
 	  				main.score += Math.pow(2, this.power + 1);
 	  			}else {
