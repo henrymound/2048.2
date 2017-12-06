@@ -174,9 +174,7 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
 			  	  		 for(int x = 0; x < 4; x++) {
 			  	  			 if(mainBoard.getBoard()[y][x] != null) {
 			  	  				if(!(mainBoard.getBoard()[y][x].canMoveLeft()) &&	 
-					  	  				!(mainBoard.getBoard()[y][x].canMoveUp()) &&	
-					  	  				!(mainBoard.getBoard()[y][x].canMoveE()) &&	  
-					  	  				!(mainBoard.getBoard()[y][x].canMoveQ())
+					  	  				!(mainBoard.getBoard()[y][x].canMoveUp())
 					  	  				){
 					  	  			 }else {
 					  	  				 return false;
@@ -296,32 +294,33 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
 				  	  		 for(int x = 0; x < 4; x++) {
 				  	  			 if(mainBoard.getBoard()[y][x] != null) {
 				  	  			 
-					  	  				 if(mainBoard.getBoard()[y][x].canMoveQ()) {
-						  	  				mainBoard.moveTry('q');
-										}
-					  	  				else if(mainBoard.getBoard()[y][x].canMoveUp()) {
-					  	  				mainBoard.moveTry('w');
-									} 
-				  	  				else if(mainBoard.getBoard()[y][x].canMoveE()) {
-					  	  				mainBoard.moveTry('e');
+					  	  			if(mainBoard.getBoard()[y][x].canMoveUp()) {
+						  	  			mainBoard.moveTry('w');
 									}
-				  	  				else if(mainBoard.getBoard()[y][x].canMoveLeft()) {
+					  	  			else if(mainBoard.getBoard()[y][x].canMoveLeft()) {
 					  	  				mainBoard.moveTry('a');
 									} 
 				  	  				else if(desperate() && mainBoard.getBoard()[y][x] != null) {
-						  	  			
-						  	  			if(mainBoard.getBoard()[y][x].canMoveC()) {
-						  	  				mainBoard.moveTry('c');
+
+					  	  				 
+						  	  			if(mainBoard.getBoard()[y][x].canMoveQ()) {
+						  	  				mainBoard.moveTry('q');
 										} 
-						  	  			else if(mainBoard.getBoard()[y][x].canMoveZ()) {
-						  	  				mainBoard.moveTry('z');
-										} 
-						  	  			else if(mainBoard.getBoard()[y][x].canMoveRight()) {
-							  	  				mainBoard.moveTry('d');
-											}
-						  	  			else if(mainBoard.getBoard()[y][x].canMoveDown()) {
-						  	  				mainBoard.moveTry('s');
+						  	  			else if(mainBoard.getBoard()[y][x].canMoveE()) {
+							  	  				mainBoard.moveTry('e');
 										}
+						  	  			else if(mainBoard.getBoard()[y][x].canMoveRight()) {
+						  	  				mainBoard.moveTry('d');
+										}
+						  	  			else if(mainBoard.getBoard()[y][x].canMoveC()) {
+						  	  				mainBoard.moveTry('c');
+										}
+					  	  				else if(mainBoard.getBoard()[y][x].canMoveZ()) {
+						  	  				mainBoard.moveTry('z');
+										}
+					  	  				else if(mainBoard.getBoard()[y][x].canMoveDown()) {
+						  	  				mainBoard.moveTry('s');
+										} 
 				  	  				}
 				  	  				if(gameOver()) {
 				  	    	  				mainBoard.paintGameOver();	
