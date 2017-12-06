@@ -217,7 +217,7 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
 		        	Tile.TILE_256_COLOR = new Color(111,203,159);
 				Tile.TILE_512_COLOR = new Color(212,238,94);
 			    	Tile.TILE_1024_COLOR = new Color(255,66,66);
-			    	Tile.TILE_2048_COLOR = new Color(89,79,79);
+			    	Tile.TILE_2048_COLOR = new Color(5,135,137);
 		        	Tile.themeTextColor = Color.WHITE;
 		        	Tile.themeBefore2 = Color.BLACK;
 		        	mainBoard.repaint();
