@@ -174,7 +174,8 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
 			  	  		 for(int x = 0; x < 4; x++) {
 			  	  			 if(mainBoard.getBoard()[y][x] != null) {
 			  	  				if(!(mainBoard.getBoard()[y][x].canMoveLeft()) &&	 
-					  	  				!(mainBoard.getBoard()[y][x].canMoveUp())
+					  	  				!(mainBoard.getBoard()[y][x].canMoveUp()) &&	 
+					  	  				!(mainBoard.getBoard()[y][x].canMoveQ())
 					  	  				){
 					  	  			 }else {
 					  	  				 return false;
@@ -211,9 +212,14 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
 		        	Tile.TILE_8_COLOR = new Color(70,191,238);
 		        	Tile.TILE_16_COLOR = new Color(208,62,25);
 		        	Tile.TILE_32_COLOR = new Color(219,133,28);
+		        	Tile.TILE_64_COLOR = Color.blue;
+		        	Tile.TILE_128_COLOR = new Color(251,46,1);
+		        	Tile.TILE_256_COLOR = new Color(111,203,159);
+				Tile.TILE_512_COLOR = new Color(212,238,94);
+			    	Tile.TILE_1024_COLOR = new Color(255,66,66);
+			    	Tile.TILE_2048_COLOR = new Color(89,79,79);
 		        	Tile.themeTextColor = Color.WHITE;
 		        	Tile.themeBefore2 = Color.BLACK;
-		        	Tile.TILE_64_COLOR = Color.blue;
 		        	mainBoard.repaint();
 	            requestFocusInWindow();
 	        } else if (source == classicBox) {
@@ -226,6 +232,11 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
 		        	Tile.TILE_16_COLOR = new Color(222, 148, 103);
 		        	Tile.TILE_32_COLOR = new Color(218, 123, 97);
 		        	Tile.TILE_64_COLOR = new Color(215, 95, 63);
+		        	Tile.TILE_128_COLOR = new Color(227, 203, 106);
+		        	Tile.TILE_256_COLOR = new Color(229, 206, 118);
+		        	Tile.TILE_512_COLOR = new Color(219, 190, 61);
+		        	Tile.TILE_1024_COLOR = new Color(215, 182, 49);
+		        	Tile.TILE_2048_COLOR = new Color(225, 193, 67);
 		        	Tile.themeTextColor = Color.white;
 		        	Tile.themeBefore2 = new Color(116, 109, 101);
 
@@ -294,19 +305,17 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
 				  	  		 for(int x = 0; x < 4; x++) {
 				  	  			 if(mainBoard.getBoard()[y][x] != null) {
 				  	  			 
-					  	  			if(mainBoard.getBoard()[y][x].canMoveUp()) {
+				  	  				if(mainBoard.getBoard()[y][x].canMoveQ()) {
+						  	  			mainBoard.moveTry('q');
+									}
+				  	  				else if(mainBoard.getBoard()[y][x].canMoveUp()) {
 						  	  			mainBoard.moveTry('w');
 									}
 					  	  			else if(mainBoard.getBoard()[y][x].canMoveLeft()) {
 					  	  				mainBoard.moveTry('a');
 									} 
 				  	  				else if(desperate() && mainBoard.getBoard()[y][x] != null) {
-
-					  	  				 
-						  	  			if(mainBoard.getBoard()[y][x].canMoveQ()) {
-						  	  				mainBoard.moveTry('q');
-										} 
-						  	  			else if(mainBoard.getBoard()[y][x].canMoveE()) {
+				  	  					if(mainBoard.getBoard()[y][x].canMoveE()) {
 							  	  				mainBoard.moveTry('e');
 										}
 						  	  			else if(mainBoard.getBoard()[y][x].canMoveRight()) {

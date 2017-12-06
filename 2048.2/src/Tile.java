@@ -16,11 +16,11 @@ public class Tile extends Canvas {
 	static Color TILE_64_COLOR = new Color(215, 95, 63);
 	static Color themeTextColor = Color.white;
 	static Color themeBefore2 = new Color(116, 109, 101);
-	static final Color TILE_128_COLOR = new Color(227, 203, 106);
-	static final Color TILE_256_COLOR = new Color(229, 206, 118);
-	static final Color TILE_512_COLOR = new Color(219, 190, 61);
-	static final Color TILE_1024_COLOR = new Color(215, 182, 49);
-	static final Color TILE_2048_COLOR = new Color(225, 193, 67);
+	static Color TILE_128_COLOR = new Color(227, 203, 106);
+	static Color TILE_256_COLOR = new Color(229, 206, 118);
+	static Color TILE_512_COLOR = new Color(219, 190, 61);
+	static Color TILE_1024_COLOR = new Color(215, 182, 49);
+	static Color TILE_2048_COLOR = new Color(225, 193, 67);
 	static final Color TILE_4096_COLOR = new Color(143, 217, 248);
 	/*static final Color TILE_8192_COLOR = new Color();
 	static final Color TILE_16384_COLOR = new Color();
