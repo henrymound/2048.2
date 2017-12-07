@@ -21,6 +21,7 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
 	Checkbox retroBox;
 	public static int score = 0;
 	Label scoreLabel;
+	public static Label moveLabel;
 	Panel mainPanel;
 	Button AIPlayButton;
 	Button RestartButton;
@@ -46,6 +47,11 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
         scoreLabel.setForeground(Color.white);
         scoreLabel.setFont(preferredFont);
 		scoreLabel.setAlignment(Label.RIGHT);
+		
+		moveLabel = new Label("");
+		moveLabel.setForeground(Color.white);
+		moveLabel.setFont(preferredFont);
+		moveLabel.setAlignment(Label.RIGHT);
 
         Panel themePanel = new Panel();
         themePanel.setLayout(new GridLayout(4, 1));
@@ -82,7 +88,12 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
 		titlePanel.add(titleLabel, BorderLayout.NORTH);
 		northPanel.add(titlePanel);
 
-        northPanel.add(scoreLabel);
+
+        Panel scoreMovePanel = new Panel();
+        scoreMovePanel.setLayout(new GridLayout(2, 1));
+        scoreMovePanel.add(scoreLabel);
+        scoreMovePanel.add(moveLabel);
+        northPanel.add(scoreMovePanel);
         mainPanel.add(northPanel, BorderLayout.NORTH);
 		
         mainPanel.setBackground(Color.GRAY);
@@ -134,7 +145,7 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
 			scoreLabel.setText("Score: " + score + " ");
 			scoreLabel.setAlignment(Label.RIGHT);
 
-	    	  	main.mainBoard.repaint();
+	    	  	main.mainBoard.update();
 	    	  	
 
 	    	  	if(gameOver()) {
@@ -220,7 +231,7 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
 			    	Tile.TILE_2048_COLOR = new Color(5,135,137);
 		        	Tile.themeTextColor = Color.WHITE;
 		        	Tile.themeBefore2 = Color.BLACK;
-		        	mainBoard.repaint();
+		        	mainBoard.update();
 	            requestFocusInWindow();
 	        } else if (source == classicBox) {
 	            System.out.println("Classic Box");
@@ -240,7 +251,7 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
 		        	Tile.themeTextColor = Color.white;
 		        	Tile.themeBefore2 = new Color(116, 109, 101);
 
-	        	mainBoard.repaint();
+	        	mainBoard.update();
 	            requestFocusInWindow();
 	        }
 	      }
@@ -286,7 +297,7 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
 		if(e.getSource() == RestartButton) {
 			mainBoard.clearBoard();
 			mainBoard.spawnRandTile();
-			mainBoard.repaint();
+			mainBoard.update();
 		}
 		if(e.getSource() == AIPlayButton) {
 			if(AIPlaying) {
@@ -341,7 +352,11 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
 				  	  			
 				  	  		 }
 				    		}
-	  	  				mainBoard.repaint();
+				    	
+	  	  				mainBoard.update();
+		  		    	  	if(gameOver()) {
+		  	    	  			mainBoard.paintGameOver();	
+		  	    	  		}
 				}
 			}
 		}, 0, 200);

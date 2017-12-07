@@ -102,6 +102,7 @@ public class Tile extends Canvas {
 	  			yCoord -= 1;
 	  			Board.board = tempArray;
 	  			printArray(Board.board);
+	  			main.moveLabel.setText("W");
 	  		}
 
 			break;
@@ -123,6 +124,7 @@ public class Tile extends Canvas {
 	  			yCoord += 1;
 	  			Board.board = tempArray;
 	  			printArray(Board.board);
+	  			main.moveLabel.setText("S");
 	  		}
 			break;
 		}
@@ -142,6 +144,8 @@ public class Tile extends Canvas {
 	  			xCoord += 1;
 	  			Board.board = tempArray;
 	  			printArray(Board.board);
+
+	  			main.moveLabel.setText("D");
 	  		}
 			break;
 		}
@@ -166,6 +170,7 @@ public class Tile extends Canvas {
 	  			xCoord -= 1;
 	  			Board.board = tempArray;
 	  			printArray(Board.board);
+	  			main.moveLabel.setText("A");
 	  		}
 			break;
 		}
@@ -188,6 +193,8 @@ public class Tile extends Canvas {
 	  			yCoord -= 1;
 	  			Board.board = tempArray;
 	  			printArray(Board.board);
+
+	  			main.moveLabel.setText("E");
 	  		}
 			break;
 		}
@@ -210,6 +217,7 @@ public class Tile extends Canvas {
 	  			yCoord -= 1;
 	  			Board.board = tempArray;
 	  			printArray(Board.board);
+	  			main.moveLabel.setText("Q");
 	  		}
 			break;
 		}
@@ -232,6 +240,7 @@ public class Tile extends Canvas {
 	  			yCoord += 1;
 	  			Board.board = tempArray;
 	  			printArray(Board.board);
+	  			main.moveLabel.setText("Z");
 	  		}
 			break;
 		}
@@ -254,6 +263,7 @@ public class Tile extends Canvas {
 	  			yCoord += 1;
 	  			Board.board = tempArray;
 	  			printArray(Board.board);
+	  			main.moveLabel.setText("C");
 	  		}
 			break;
 		}
