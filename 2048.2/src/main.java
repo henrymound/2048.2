@@ -13,6 +13,7 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
 
     private static final long serialVersionUID = 1L;
     
+    // variables that dictate constants for window
 	static final int BOARD_SIZE = 500;
 	static final int APPLET_SIZE = 700;
 	static Font preferredFont = new Font("Helvetica", Font.PLAIN, 20);
@@ -23,10 +24,14 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
 	Label scoreLabel;
 	public static Label moveLabel;
 	Panel mainPanel;
+	
+	// variables regarding AI 
 	Button AIPlayButton;
 	Button RestartButton;
 	boolean AIPlaying = false;
-	 
+	
+	// init function that the applet looks for on startup 
+	// initializes or declares applet objects that add functionality to program 
 	public void init() {
 		mainPanel = new Panel();
 		mainPanel.setBackground(Color.black);
@@ -43,6 +48,7 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
         retroBox = new Checkbox("Retro", themeGroup, false);
         retroBox.setForeground(Color.white);
 
+        // creates object that will take and display the score
         scoreLabel = new Label("Score: 0 ");
         scoreLabel.setForeground(Color.white);
         scoreLabel.setFont(preferredFont);
@@ -53,11 +59,13 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
 		moveLabel.setFont(preferredFont);
 		moveLabel.setAlignment(Label.RIGHT);
 
+		// panels that hold the theme buttons and the Title
         Panel themePanel = new Panel();
         themePanel.setLayout(new GridLayout(4, 1));
         Panel northPanel = new Panel();
         northPanel.setLayout(new GridLayout(1, 3));
         
+        // adding objects to the theme panel
         themePanel.add(classicBox);
         themePanel.add(retroBox);
         themePanel.add(AIPlayButton);
@@ -65,40 +73,42 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
         classicBox.addItemListener(this);
         retroBox.addItemListener(this);
         northPanel.add(themePanel);
-        //add radio buttons
        
-		
+        // declaring the board object that holds our 2D array
+        // and the objects that contain it
 		mainBoard = new Board();
 		Panel boardPanel = new Panel();
 		BorderLayout mainLayout = new BorderLayout();
 		
+		// adding graphics to the board
 		mainPanel.setLayout(mainLayout);
 		boardPanel.setSize(BOARD_SIZE, BOARD_SIZE);
 		boardPanel.add(mainBoard);
 		mainPanel.add(northPanel, BorderLayout.NORTH);
 		mainPanel.add(boardPanel, BorderLayout.CENTER);
+		
+		// adding and creating the objects related to the title
 		Panel titlePanel = new Panel();
-		
-		
 		Label titleLabel = new Label("2048.2", Label.CENTER);
 		titleLabel.setFont(new Font("Helvetica", Font.BOLD, 30));
 		titleLabel.setForeground(Color.WHITE);
-		
-		titleLabel.setForeground(Color.WHITE);
 		titlePanel.add(titleLabel, BorderLayout.NORTH);
+		
+		// placement of title
 		northPanel.add(titlePanel);
-
-
+        
+        //Add score and move status labels
         Panel scoreMovePanel = new Panel();
         scoreMovePanel.setLayout(new GridLayout(2, 1));
         scoreMovePanel.add(scoreLabel);
         scoreMovePanel.add(moveLabel);
         northPanel.add(scoreMovePanel);
+
         mainPanel.add(northPanel, BorderLayout.NORTH);
-		
-        mainPanel.setBackground(Color.GRAY);
+		mainPanel.setBackground(Color.GRAY);
         mainPanel.setForeground(Color.GRAY);
         
+        // adding listeners and making sure the game understands when it is clicked on
 		setFocusable(true);
 		addKeyListener(this);
 		addMouseListener(this);
@@ -109,45 +119,52 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
         
 		
 	}
-	
+		// handles the when a key is pressed
 	   public void keyPressed( KeyEvent e ) { 
 		   	
+		   	// reads when the board is full
 		   	mainBoard.board_full = mainBoard.is_Full();
+		   	
+		   	// acquires the char that is read from the keyboard
 			char c = e.getKeyChar();
 			
-		      if ( c != KeyEvent.CHAR_UNDEFINED ) {
-		    	  	mainBoard.tileNotMoved();
-		    	  	mainBoard.moveTry(c);
-		    	  	
-		 
-		      }else {
-		    	  System.out.println("Char undefined");
-		      }
-		      e.consume();
-				
-		      int keyCode = e.getKeyCode();
-				
-				switch (keyCode) {
-				case KeyEvent.VK_UP:
-					mainBoard.moveTry('w');
-					break;
-				case KeyEvent.VK_DOWN:
-					mainBoard.moveTry('s');
-					break;
-				case KeyEvent.VK_LEFT:
-					mainBoard.moveTry('a');
-					break;
-				case KeyEvent.VK_RIGHT:
-					mainBoard.moveTry('d');
-					break;
-				}		      
-
+			// handles above char
+			if (c != KeyEvent.CHAR_UNDEFINED) {
+				mainBoard.tileNotMoved(); //resets the variable for tiles moved
+				mainBoard.moveTry(c); 	  //try to move in the correct direction which is the key passed
+			
+			} else {
+				System.out.println("Char undefined"); //makes sure nothing breaks if wrong key pressed
+			}
+			e.consume();
+			
+			// handles if the user decides to use the number keys
+			int keyCode = e.getKeyCode();
+	
+			switch (keyCode) {
+			case KeyEvent.VK_UP:
+				mainBoard.moveTry('w');
+				break;
+			case KeyEvent.VK_DOWN:
+				mainBoard.moveTry('s');
+				break;
+			case KeyEvent.VK_LEFT:
+				mainBoard.moveTry('a');
+				break;
+			case KeyEvent.VK_RIGHT:
+				mainBoard.moveTry('d');
+				break;
+			}
+			
+			// displays score
 			scoreLabel.setText("Score: " + score + " ");
 			scoreLabel.setAlignment(Label.RIGHT);
-
+	
+				//calls update now that all the variables are in order
 	    	  	main.mainBoard.update();
-	    	  	
 
+	    	  	
+	    	  	// calls the game over method after updating the board 
 	    	  	if(gameOver()) {
     	  			mainBoard.paintGameOver();	
     	  		}
@@ -157,6 +174,8 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
 		     
 	   }
 	   
+	   // method determines if the game is over if the board is full
+	   // it tests if any brick can move in any direction using our other methods
 	   public static boolean gameOver() {
    	  	if(mainBoard.is_Full()) {
    	  		for(int y = 0; y < 4; y++) {
@@ -180,6 +199,8 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
 			return false;
 	   }
 	   
+	   // AI is desperate for a move because its primary function (attempt to move
+	   // up into the top left corner) is unavailable
 	   public static boolean desperate() {
 	   	  		for(int y = 0; y < 4; y++) {
 			  	  		 for(int x = 0; x < 4; x++) {
@@ -199,18 +220,11 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
 	   	  		
 		   }
 	   
+	   //blank methods that are required for keyListener
 	   public void keyReleased( KeyEvent e ) { }
-	   public void keyTyped( KeyEvent e ) {
-	      /*char c = e.getKeyChar();
-	
-	      if ( c != KeyEvent.CHAR_UNDEFINED ) {
-	    	  	mainBoard.move(c);
-	         e.consume();
-	      } else {
-	    	  System.out.println("Char undefined");
-	      }*/
-	   }
-
+	   public void keyTyped( KeyEvent e ) {  }
+	   
+	   // determines if our theme options have been pressed and acts accordingly
 	   public void itemStateChanged(ItemEvent e) {
 	        Object source = e.getItemSelectable();
 
@@ -226,12 +240,16 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
 		        	Tile.TILE_64_COLOR = Color.blue;
 		        	Tile.TILE_128_COLOR = new Color(251,46,1);
 		        	Tile.TILE_256_COLOR = new Color(111,203,159);
-				Tile.TILE_512_COLOR = new Color(212,238,94);
+		        	Tile.TILE_512_COLOR = new Color(212,238,94);
 			    	Tile.TILE_1024_COLOR = new Color(255,66,66);
 			    	Tile.TILE_2048_COLOR = new Color(5,135,137);
 		        	Tile.themeTextColor = Color.WHITE;
 		        	Tile.themeBefore2 = Color.BLACK;
-		        	mainBoard.update();
+
+                    mainBoard.update();
+
+		        
+		        // gets the applet to respond to key presses
 	            requestFocusInWindow();
 	        } else if (source == classicBox) {
 	            System.out.println("Classic Box");
@@ -252,12 +270,16 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
 		        	Tile.themeBefore2 = new Color(116, 109, 101);
 
 	        	mainBoard.update();
+
+	        	
+	        	// gets the applet to respond to key presses
 	            requestFocusInWindow();
 	        }
 	      }
 	   
 
-
+	//generated unused methods for mouseListener
+	   
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
@@ -283,6 +305,7 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
 		requestFocusInWindow();
 	}
 
+	// This is the mouse Listener method that is used
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
@@ -291,6 +314,7 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
 		
 	}
 
+	// handles if the AI or Restart buttons are clicked
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
@@ -299,7 +323,11 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
 			mainBoard.spawnRandTile();
 			mainBoard.update();
 		}
+		
+		// this is the AI playing method
 		if(e.getSource() == AIPlayButton) {
+			
+			// if statement that either changes the AI button based on state
 			if(AIPlaying) {
 				AIPlayButton.setLabel("AI Play");
 				AIPlaying = false;
@@ -307,11 +335,15 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
 				AIPlayButton.setLabel("Stop AI Play");
 				AIPlaying = true;
 				
-				Timer t = new Timer();
+				// based on the state of the label the below method determines the AI actions
+				Timer t = new Timer(); // timer that makes the AI run based on the label state
 				t.schedule(new TimerTask() {
 				    @Override
 				    public void run() {
 				    	if(AIPlaying) {
+				    		
+				    	// try to move into the top left corner
+				    	// if desperate == true then try other movements
 				    	for(int y = 0; y < 4; y++) {
 				  	  		 for(int x = 0; x < 4; x++) {
 				  	  			 if(mainBoard.getBoard()[y][x] != null) {
@@ -342,6 +374,8 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
 						  	  				mainBoard.moveTry('s');
 										} 
 				  	  				}
+				  	  				
+				  	  				// stop AI if game is over
 				  	  				if(gameOver()) {
 				  	    	  				mainBoard.paintGameOver();	
 				  	    	  				AIPlaying = false;
