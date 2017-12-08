@@ -22,6 +22,7 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
 	Checkbox retroBox;
 	public static int score = 0;
 	Label scoreLabel;
+	public static Label moveLabel;
 	Panel mainPanel;
 	
 	// variables regarding AI 
@@ -36,7 +37,7 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
 		mainPanel.setBackground(Color.black);
 		add(mainPanel);
 		AIPlayButton = new Button("AI Play");
-		RestartButton = new Button("Restart");
+		RestartButton = new Button("New Game");
 		AIPlayButton.addActionListener(this);
 		RestartButton.addActionListener(this);
         CheckboxGroup themeGroup = new CheckboxGroup();
@@ -52,6 +53,11 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
         scoreLabel.setForeground(Color.white);
         scoreLabel.setFont(preferredFont);
 		scoreLabel.setAlignment(Label.RIGHT);
+		
+		moveLabel = new Label("");
+		moveLabel.setForeground(Color.white);
+		moveLabel.setFont(preferredFont);
+		moveLabel.setAlignment(Label.RIGHT);
 
 		// panels that hold the theme buttons and the Title
         Panel themePanel = new Panel();
@@ -90,8 +96,14 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
 		
 		// placement of title
 		northPanel.add(titlePanel);
-        northPanel.add(scoreLabel);
         
+        //Add score and move status labels
+        Panel scoreMovePanel = new Panel();
+        scoreMovePanel.setLayout(new GridLayout(2, 1));
+        scoreMovePanel.add(scoreLabel);
+        scoreMovePanel.add(moveLabel);
+        northPanel.add(scoreMovePanel);
+
         mainPanel.add(northPanel, BorderLayout.NORTH);
 		mainPanel.setBackground(Color.GRAY);
         mainPanel.setForeground(Color.GRAY);
@@ -147,9 +159,10 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
 			// displays score
 			scoreLabel.setText("Score: " + score + " ");
 			scoreLabel.setAlignment(Label.RIGHT);
-				
-				//calls repaint now that all the variables are in order
-	    	  	main.mainBoard.repaint();
+	
+				//calls update now that all the variables are in order
+	    	  	main.mainBoard.update();
+
 	    	  	
 	    	  	// calls the game over method after updating the board 
 	    	  	if(gameOver()) {
@@ -232,7 +245,9 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
 			    	Tile.TILE_2048_COLOR = new Color(5,135,137);
 		        	Tile.themeTextColor = Color.WHITE;
 		        	Tile.themeBefore2 = Color.BLACK;
-		        	mainBoard.repaint();
+
+                    mainBoard.update();
+
 		        
 		        // gets the applet to respond to key presses
 	            requestFocusInWindow();
@@ -254,7 +269,8 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
 		        	Tile.themeTextColor = Color.white;
 		        	Tile.themeBefore2 = new Color(116, 109, 101);
 
-	        	mainBoard.repaint();
+	        	mainBoard.update();
+
 	        	
 	        	// gets the applet to respond to key presses
 	            requestFocusInWindow();
@@ -305,7 +321,7 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
 		if(e.getSource() == RestartButton) {
 			mainBoard.clearBoard();
 			mainBoard.spawnRandTile();
-			mainBoard.repaint();
+			mainBoard.update();
 		}
 		
 		// this is the AI playing method
@@ -370,7 +386,12 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
 				  	  			
 				  	  		 }
 				    		}
-	  	  				mainBoard.repaint();
+
+						scoreLabel.setText("Score: " + score + " ");
+	  	  				mainBoard.update();
+		  		    	  	if(gameOver()) {
+		  	    	  			mainBoard.paintGameOver();	
+		  	    	  		}
 				}
 			}
 		}, 0, 200);

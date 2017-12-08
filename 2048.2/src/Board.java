@@ -1,14 +1,18 @@
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
-public class Board extends Canvas{
+public class Board extends Canvas {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-	//instance variables
+	// instance variables
 	public static Tile[][] board = new Tile[4][4];
 	boolean board_full = false;
 	boolean tileHasMoved = false;
+	Image backBuffer;
+	Graphics bBG;
+	// constructor
+
 	
 	//constructor for beginning of the game
 	Board(){
@@ -29,21 +33,20 @@ public class Board extends Canvas{
 	// will not spawn on another tile, and won't spawn if the board is full
 	public void spawnRandTile() {
 		boolean didSpawn = false;
-		while(!didSpawn && board_full == false) {
-			int xRand = (int)(Math.random() * 4);
-			int yRand = (int)(Math.random() * 4);
-			int powerRand = (int)(Math.random() * 2) + 1;
-			if(board[yRand][xRand] == null) {
+		while (!didSpawn && board_full == false) {
+			int xRand = (int) (Math.random() * 4);
+			int yRand = (int) (Math.random() * 4);
+			int powerRand = (int) (Math.random() * 2) + 1;
+			if (board[yRand][xRand] == null) {
 				board[yRand][xRand] = new Tile(powerRand, yRand, xRand);
 				didSpawn = true;
-				System.out.println("Spawned new tile at ("+yRand+", "+xRand+")");
+				System.out.println("Spawned new tile at (" + yRand + ", " + xRand + ")");
 			}
-			
+
 		}
 
-		
 	}
-	
+
 	//clears the board
 	public void clearBoard() {
 		board = new Tile[4][4];
@@ -57,21 +60,44 @@ public class Board extends Canvas{
 	// method that is called if the game is over and out puts a message accordingly
 	public void paintGameOver() {
 		Graphics g = this.getGraphics();
-		Graphics2D g2 = (Graphics2D)g;
-	    RenderingHints rh = new RenderingHints(
-	             RenderingHints.KEY_TEXT_ANTIALIASING,
-	             RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-	    g2.setRenderingHints(rh);
+		Graphics2D g2 = (Graphics2D) g;
+		RenderingHints rh = new RenderingHints(RenderingHints.KEY_TEXT_ANTIALIASING,
+				RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+		g2.setRenderingHints(rh);
 		g2.setFont(new Font("Helvetica", Font.BOLD, 60));
 		g2.setColor(Color.WHITE);
-		 int tileCenter = ((int)(main.BOARD_SIZE)/2);
-		 Rectangle2D titleOffset = (new Font("Helvetica", Font.BOLD, 60).getStringBounds("Game Over!", (g2).getFontRenderContext()));
+		int tileCenter = ((int) (main.BOARD_SIZE) / 2);
+		Rectangle2D titleOffset = (new Font("Helvetica", Font.BOLD, 60).getStringBounds("Game Over!",
+				(g2).getFontRenderContext()));
 
-		g2.drawString("Game Over!",
-				tileCenter - (int) titleOffset.getWidth()/2,
-				tileCenter + (int) titleOffset.getHeight()/2 - 10);
+		g2.drawString("Game Over!", tileCenter - (int) titleOffset.getWidth() / 2,
+				tileCenter + (int) titleOffset.getHeight() / 2 - 10);
 	}
-	
+
+	//Use update instead of paint to use DoubleBuffering
+	public void update() {
+		//Get the current graphics element
+		Graphics g = this.getGraphics();
+		
+		//Get the current dimension
+		Dimension d = this.getSize();
+
+		//Create a new image and graphics to be drawn over
+		Image newImage = createImage(d.width, d.height);
+		Graphics newGraphics = newImage.getGraphics();
+		
+		//Setup the new graphics to have the same gray background
+		newGraphics.setColor(getBackground());
+		newGraphics.fillRect(0, 0, d.width, d.height);
+		
+		//Redraw on newImage via paint with parameter newGraphics
+		paint(newGraphics);
+		
+		//Draw the finished image all at once over the current image
+		g.drawImage(newImage, 0, 0, this);
+	}
+
+
 	// paint method that draws the app
 	public void paint(Graphics g){
 
@@ -94,6 +120,7 @@ public class Board extends Canvas{
 			int yCoord = 0;
 			yCoord = (int) (main.BOARD_SIZE * (1 - (Tile.TILE_RATIO * (5 - i))))
 					+ (int) ((i + 1) * Tile.TILE_SPACING * main.BOARD_SIZE);
+
 			
 			// draws the color of the each tile and the numbers on top
 			for (int x = 0; x < board[i].length; x++) {
@@ -103,7 +130,7 @@ public class Board extends Canvas{
 							+ (int) ((x + 1) * Tile.TILE_SPACING * main.BOARD_SIZE);
 
 					g2.setColor(board[i][x].tileColor);
-				
+
 					g2.fillRoundRect(xCoord, yCoord, (int) (main.BOARD_SIZE * Tile.TILE_RATIO),
 							(int) (main.BOARD_SIZE * Tile.TILE_RATIO), 20, 20);
 					g2.setColor(board[i][x].textColorFromPower(board[i][x].power));
@@ -120,6 +147,7 @@ public class Board extends Canvas{
 
 			}
 		}
+
 	}
 	
 	// Initiates the checking of every block in the right order for movement
@@ -392,10 +420,12 @@ public class Board extends Canvas{
 		tileHasMoved = true;
 	}
 
+
 	// setter for HasMoved Variable
 	public void tileNotMoved() {
 		tileHasMoved = false;
 	}
+
 
 	// function that test if the board is full
 	public boolean is_Full() {
