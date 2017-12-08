@@ -37,7 +37,7 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
 		mainPanel.setBackground(Color.black);
 		add(mainPanel);
 		AIPlayButton = new Button("AI Play");
-		RestartButton = new Button("Restart");
+		RestartButton = new Button("New Game");
 		AIPlayButton.addActionListener(this);
 		RestartButton.addActionListener(this);
         CheckboxGroup themeGroup = new CheckboxGroup();
@@ -386,7 +386,8 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
 				  	  			
 				  	  		 }
 				    		}
-				    	
+
+						scoreLabel.setText("Score: " + score + " ");
 	  	  				mainBoard.update();
 		  		    	  	if(gameOver()) {
 		  	    	  			mainBoard.paintGameOver();	
