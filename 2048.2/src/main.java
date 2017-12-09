@@ -20,6 +20,7 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
 	Checkbox classicBox;
 	Checkbox retroBox;
 	public static int score = 0;
+	public static Label moveLabel;
 	Label scoreLabel;
 	Panel mainPanel;
 
@@ -48,6 +49,10 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
 		retroBox.setForeground(Color.white);
 
 		// creates object that will take and display the score
+		moveLabel = new Label("");
+		moveLabel.setForeground(Color.white);
+		moveLabel.setFont(preferredFont);
+		moveLabel.setAlignment(Label.RIGHT);
 		makeScoreLabel();
 
 		// panels that hold the theme buttons and the Title
@@ -85,6 +90,11 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
 		// placement of title
 		northPanel.add(titlePanel);
 		northPanel.add(scoreLabel);
+		Panel scoreMovePanel = new Panel();
+        scoreMovePanel.setLayout(new GridLayout(2, 1));
+        scoreMovePanel.add(scoreLabel);
+        scoreMovePanel.add(moveLabel);
+        northPanel.add(scoreMovePanel);
 
 		mainPanel.add(northPanel, BorderLayout.NORTH);
 		mainPanel.setBackground(Color.GRAY);
@@ -368,7 +378,9 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
 
 								}
 							}
-							mainBoard.repaint();
+							mainBoard.update();						scoreLabel.setText("Score: " + score + " ");
+							scoreLabel.setText("Score: " + score + " ");
+
 						}
 					}
 				}, 0, 200);

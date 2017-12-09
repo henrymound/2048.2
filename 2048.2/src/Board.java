@@ -69,6 +69,28 @@ public class Board extends Canvas {
 		g2.drawString("Game Over!", tileCenter - (int) titleOffset.getWidth() / 2,
 				tileCenter + (int) titleOffset.getHeight() / 2 - 10);
 	}
+	
+	public void update() {
+		//Get the current graphics element
+		Graphics g = this.getGraphics();
+		
+		//Get the current dimension
+		Dimension d = this.getSize();
+
+		//Create a new image and graphics to be drawn over
+		Image newImage = createImage(d.width, d.height);
+		Graphics newGraphics = newImage.getGraphics();
+		
+		//Setup the new graphics to have the same gray background
+		newGraphics.setColor(getBackground());
+		newGraphics.fillRect(0, 0, d.width, d.height);
+		
+		//Redraw on newImage via paint with parameter newGraphics
+		paint(newGraphics);
+		
+		//Draw the finished image all at once over the current image
+		g.drawImage(newImage, 0, 0, this);
+	}
 
 	// paint method that draws the app
 	public void paint(Graphics g) {
