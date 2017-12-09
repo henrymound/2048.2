@@ -237,6 +237,7 @@ public class Tile extends Canvas {
 		}
 
 		case 'c':{
+<<<<<<< HEAD
 
 			while(canMoveC()) {
 				main.mainBoard.tileMoved();
@@ -263,6 +264,34 @@ public class Tile extends Canvas {
 
 			while(canMoveUp() && canMoveLeft()) {
 				main.mainBoard.tileMoved();
+=======
+
+			while(canMoveC()) {
+				main.mainBoard.tileMoved();
+	  			System.out.println("Can move with ("+yCoord+", "+xCoord+")");
+	  			Tile[][] tempArray = Board.board;
+	  			if(tempArray[yCoord + 1][xCoord + 1] != null && 
+	  					tempArray[yCoord + 1][xCoord + 1].power == this.power) {
+	  				tempArray[yCoord + 1][xCoord + 1] = new Tile(this.power + 1, yCoord + 1, xCoord + 1);
+	  				main.score += Math.pow(2, this.power + 1);
+	  			}else {
+		  			tempArray[yCoord + 1][xCoord + 1] = tempArray[yCoord][xCoord];
+		  		}
+	  			tempArray[yCoord][xCoord] = null;
+	  			xCoord += 1;
+	  			yCoord += 1;
+	  			Board.board = tempArray;
+	  			printArray(Board.board);
+	  		}
+			break;
+		}
+		
+		/*
+		case 'q':{
+
+			while(canMoveUp() && canMoveLeft()) {
+				main.mainBoard.tileMoved();
+>>>>>>> parent of c9849f8... comments added to Tile and two helper functions created
 	  			System.out.println("Can move");
 	  			Tile[][] tempArray = Board.board;
 	  			tempArray[yCoord - 1][xCoord - 1] = this;
@@ -393,6 +422,7 @@ public class Tile extends Canvas {
 				((Board.board[yCoord + 1][xCoord + 1] == null)// If the square above is null
 				|| Board.board[yCoord + 1][xCoord + 1].power == this.power)
 				);
+<<<<<<< HEAD
 	}
 	
 	public static void printArray(Tile[][] matrix) {
@@ -407,6 +437,19 @@ public class Tile extends Canvas {
 }
 =======
 	
+=======
+	}
+	
+	public static void printArray(Tile[][] matrix) {
+	    for (int row = 0; row < matrix.length; row++) {
+	        for (int column = 0; column < matrix[row].length; column++) {
+	            //System.out.print(matrix[row][column] + " ");
+	        }
+	        //System.out.println();
+	    }
+	}
+	
+>>>>>>> parent of c9849f8... comments added to Tile and two helper functions created
 
 
 	

@@ -10,6 +10,7 @@ public class Board extends Canvas{
 	boolean board_full = false;
 	boolean tileHasMoved = false;
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 	Image backBuffer;
 	Graphics bBG;
@@ -17,6 +18,11 @@ public class Board extends Canvas{
 	//constructor for beginning of the game
 	Board(){
 
+=======
+	
+	//constructor for beginning of the game
+	Board(){
+>>>>>>> parent of c9849f8... comments added to Tile and two helper functions created
 =======
 	
 	//constructor for beginning of the game
@@ -54,9 +60,14 @@ public class Board extends Canvas{
 		
 	}
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 	// clears the board
 
+=======
+	
+	//clears the board
+>>>>>>> parent of c9849f8... comments added to Tile and two helper functions created
 =======
 	
 	//clears the board
@@ -87,6 +98,7 @@ public class Board extends Canvas{
 				tileCenter - (int) titleOffset.getWidth()/2,
 				tileCenter + (int) titleOffset.getHeight()/2 - 10);
 	}
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 	//Use update instead of paint to use DoubleBuffering
@@ -120,6 +132,12 @@ public class Board extends Canvas{
 	// paint method that draws the app
 	public void paint(Graphics g){
 
+=======
+	
+	// paint method that draws the app
+	public void paint(Graphics g){
+
+>>>>>>> parent of c9849f8... comments added to Tile and two helper functions created
 		// cast to 2D object to enable anti-aliasing 
 		Graphics2D g2 = (Graphics2D)g;
 		
@@ -165,7 +183,10 @@ public class Board extends Canvas{
 
 			}
 		}
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of c9849f8... comments added to Tile and two helper functions created
 	}
 	
 	// Initiates the checking of every block in the right order for movement

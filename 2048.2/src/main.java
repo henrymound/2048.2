@@ -41,6 +41,7 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
 		AIPlayButton.addActionListener(this);
 		RestartButton.addActionListener(this);
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 		CheckboxGroup themeGroup = new CheckboxGroup();
 		setBackground(Color.GRAY);
@@ -53,6 +54,8 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
 		// creates object that will take and display the score
 		makeScoreLabel();
 =======
+=======
+>>>>>>> parent of c9849f8... comments added to Tile and two helper functions created
         CheckboxGroup themeGroup = new CheckboxGroup();
         setBackground(Color.GRAY);
         //if you create checkboxes and add to group,they become radio buttons
@@ -66,6 +69,9 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
         scoreLabel.setForeground(Color.white);
         scoreLabel.setFont(preferredFont);
 		scoreLabel.setAlignment(Label.RIGHT);
+<<<<<<< HEAD
+>>>>>>> parent of c9849f8... comments added to Tile and two helper functions created
+=======
 >>>>>>> parent of c9849f8... comments added to Tile and two helper functions created
 
 		// panels that hold the theme buttons and the Title
@@ -106,6 +112,7 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
 		// placement of title
 		northPanel.add(titlePanel);
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 		northPanel.add(scoreLabel);
 
@@ -121,6 +128,11 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
 
         mainPanel.add(northPanel, BorderLayout.NORTH);
 
+=======
+        northPanel.add(scoreLabel);
+        
+        mainPanel.add(northPanel, BorderLayout.NORTH);
+>>>>>>> parent of c9849f8... comments added to Tile and two helper functions created
 =======
         northPanel.add(scoreLabel);
         
@@ -176,6 +188,7 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
 				mainBoard.moveTry('d');
 				break;
 			}
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 		}
@@ -244,6 +257,8 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
 
 
 =======
+=======
+>>>>>>> parent of c9849f8... comments added to Tile and two helper functions created
 			
 			// displays score
 			scoreLabel.setText("Score: " + score + " ");
@@ -365,6 +380,9 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
 
 	//generated unused methods for mouseListener
 	   
+<<<<<<< HEAD
+>>>>>>> parent of c9849f8... comments added to Tile and two helper functions created
+=======
 >>>>>>> parent of c9849f8... comments added to Tile and two helper functions created
 	@Override
 	public void mousePressed(MouseEvent e) {
@@ -451,14 +469,20 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
 						  	  				mainBoard.moveTry('d');
 										}
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
+=======
+>>>>>>> parent of c9849f8... comments added to Tile and two helper functions created
 						  	  			else if(mainBoard.getBoard()[y][x].canMoveC()) {
 						  	  				mainBoard.moveTry('c');
 										}
 					  	  				else if(mainBoard.getBoard()[y][x].canMoveZ()) {
 						  	  				mainBoard.moveTry('z');
 										}
+<<<<<<< HEAD
+>>>>>>> parent of c9849f8... comments added to Tile and two helper functions created
+=======
 >>>>>>> parent of c9849f8... comments added to Tile and two helper functions created
 					  	  				else if(mainBoard.getBoard()[y][x].canMoveDown()) {
 						  	  				mainBoard.moveTry('s');
@@ -477,12 +501,16 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
 				  	  		 }
 				    		}
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 						scoreLabel.setText("Score: " + score + " ");
 	  	  				mainBoard.update();
 		  		    	  	if(gameOver()) {
 		  	    	  			mainBoard.paintGameOver();	
 		  	    	  		}
+=======
+	  	  				mainBoard.repaint();
+>>>>>>> parent of c9849f8... comments added to Tile and two helper functions created
 =======
 	  	  				mainBoard.repaint();
 >>>>>>> parent of c9849f8... comments added to Tile and two helper functions created
@@ -499,6 +527,10 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
 	}	   
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+>>>>>>> parent of c9849f8... comments added to Tile and two helper functions created
 =======
 
 >>>>>>> parent of c9849f8... comments added to Tile and two helper functions created
