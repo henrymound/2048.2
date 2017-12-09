@@ -363,6 +363,41 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
 											AIPlaying = false;
 											AIPlayButton.setLabel("AI Play");
 										}
+<<<<<<< HEAD
+=======
+					  	  				else if(mainBoard.getBoard()[y][x].canMoveDown()) {
+						  	  				mainBoard.moveTry('s');
+										} 
+				  	  				}
+				  	  				
+				  	  				// stop AI if game is over
+				  	  				if(gameOver()) {
+				  	    	  				mainBoard.paintGameOver();	
+				  	    	  				AIPlaying = false;
+				  	    					AIPlayButton.setLabel("AI Play");
+				  	  				}
+
+				  	  			 }
+				  	  			
+				  	  		 }
+				    		}
+				    	
+	  	  				mainBoard.update();
+		  		    	  	if(gameOver()) {
+		  	    	  			mainBoard.paintGameOver();	
+		  	    	  		}
+				}
+			}
+		}, 0, 200);
+				
+				
+					
+					
+				}
+			}
+		}
+	}	   
+>>>>>>> parent of 3b55828... Updated score increment for AI and added spacing for key indicator.
 
 									}
 

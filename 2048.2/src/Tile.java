@@ -96,12 +96,35 @@ public class Tile extends Canvas {
 	// they also handle the combining of tiles that are the same power
 	// they have nothing to do with the order that the tiles are tested in
 	public void canMove(char c) {
+<<<<<<< HEAD
 		switch (c) {
+=======
+		switch(c) {
+		case 'w':{
+			while(canMoveUp()) {
+				main.mainBoard.tileMoved();
+	  			System.out.println("Can move with ("+yCoord+", "+xCoord+")");
+	  			Tile[][] tempArray = Board.board;
+	  			if(tempArray[yCoord - 1][xCoord] != null &&
+	  				tempArray[yCoord - 1][xCoord].power == this.power) {
+	  				tempArray[yCoord - 1][xCoord] = new Tile(this.power + 1, yCoord - 1, xCoord);
+	  				main.score += Math.pow(2, this.power + 1);
+	  			}else {
+		  			tempArray[yCoord - 1][xCoord] = tempArray[yCoord][xCoord];
+		  		}
+	  			tempArray[yCoord][xCoord] = null;
+	  			yCoord -= 1;
+	  			Board.board = tempArray;
+	  			printArray(Board.board);
+	  			main.moveLabel.setText("W");
+	  		}
+>>>>>>> parent of 3b55828... Updated score increment for AI and added spacing for key indicator.
 
 		// move it if the tile can move up
 		case 'w': {
 			while (canMoveUp()) {
 				main.mainBoard.tileMoved();
+<<<<<<< HEAD
 				System.out.println("Can move with (" + yCoord + ", " + xCoord + ")");
 				Tile[][] tempArray = Board.board;
 				if (tempArray[yCoord - 1][xCoord] != null && tempArray[yCoord - 1][xCoord].power == this.power) {
@@ -116,6 +139,43 @@ public class Tile extends Canvas {
 
 			}
 
+=======
+	  			System.out.println("Can move with ("+yCoord+", "+xCoord+")");
+	  			Tile[][] tempArray = Board.board;
+	  			if(tempArray[yCoord + 1][xCoord] != null && tempArray[yCoord + 1][xCoord].power == this.power) {
+	  				tempArray[yCoord + 1][xCoord] = new Tile(this.power + 1, yCoord + 1, xCoord);
+	  				main.score += Math.pow(2, this.power + 1);
+	  			}else {
+		  			tempArray[yCoord + 1][xCoord] = tempArray[yCoord][xCoord];
+		  		}
+	  			tempArray[yCoord][xCoord] = null;
+	  			yCoord += 1;
+	  			Board.board = tempArray;
+	  			printArray(Board.board);
+	  			main.moveLabel.setText("S");
+	  		}
+			break;
+		}
+
+		case 'd':{
+			while(canMoveRight()) {
+				main.mainBoard.tileMoved();
+	  			System.out.println("Can move with ("+yCoord+", "+xCoord+")");
+	  			Tile[][] tempArray = Board.board;
+	  			if(tempArray[yCoord][xCoord + 1] != null && tempArray[yCoord][xCoord + 1].power == this.power) {
+	  				tempArray[yCoord][xCoord + 1] = new Tile(this.power + 1, yCoord, xCoord + 1);
+	  				main.score += Math.pow(2, this.power + 1);
+	  			}else {
+		  			tempArray[yCoord][xCoord + 1] = tempArray[yCoord][xCoord];
+		  		}
+	  			tempArray[yCoord][xCoord] = null;
+	  			xCoord += 1;
+	  			Board.board = tempArray;
+	  			printArray(Board.board);
+
+	  			main.moveLabel.setText("D");
+	  		}
+>>>>>>> parent of 3b55828... Updated score increment for AI and added spacing for key indicator.
 			break;
 		}
 
@@ -123,6 +183,7 @@ public class Tile extends Canvas {
 		case 's': {
 			while (canMoveDown()) {
 				main.mainBoard.tileMoved();
+<<<<<<< HEAD
 				System.out.println("Can move with (" + yCoord + ", " + xCoord + ")");
 				Tile[][] tempArray = Board.board;
 				if (tempArray[yCoord + 1][xCoord] != null && tempArray[yCoord + 1][xCoord].power == this.power) {
@@ -136,6 +197,25 @@ public class Tile extends Canvas {
 				Board.board = tempArray;
 
 			}
+=======
+	  			System.out.println("Can move with ("+yCoord+", "+xCoord+")");
+	  			printArray(Board.board);
+	  			//System.out.println();
+	  			Tile[][] tempArray = Board.board;
+	  			if(tempArray[yCoord][xCoord - 1] != null
+	  					&& tempArray[yCoord][xCoord - 1].power == this.power) {
+	  				tempArray[yCoord][xCoord - 1] = new Tile(this.power + 1, yCoord, xCoord - 1);
+	  				main.score += Math.pow(2, this.power + 1);
+	  			}else {
+		  			tempArray[yCoord][xCoord - 1] = tempArray[yCoord][xCoord];
+		  		}
+	  			tempArray[yCoord][xCoord] = null;
+	  			xCoord -= 1;
+	  			Board.board = tempArray;
+	  			printArray(Board.board);
+	  			main.moveLabel.setText("A");
+	  		}
+>>>>>>> parent of 3b55828... Updated score increment for AI and added spacing for key indicator.
 			break;
 		}
 
@@ -143,6 +223,7 @@ public class Tile extends Canvas {
 		case 'd': {
 			while (canMoveRight()) {
 				main.mainBoard.tileMoved();
+<<<<<<< HEAD
 				System.out.println("Can move with (" + yCoord + ", " + xCoord + ")");
 				Tile[][] tempArray = Board.board;
 				if (tempArray[yCoord][xCoord + 1] != null && tempArray[yCoord][xCoord + 1].power == this.power) {
@@ -156,6 +237,25 @@ public class Tile extends Canvas {
 				Board.board = tempArray;
 
 			}
+=======
+	  			System.out.println("Can move with ("+yCoord+", "+xCoord+")");
+	  			Tile[][] tempArray = Board.board;
+	  			if(tempArray[yCoord - 1][xCoord + 1] != null && 
+	  				tempArray[yCoord - 1][xCoord + 1].power == this.power) {
+	  				tempArray[yCoord - 1][xCoord + 1] = new Tile(this.power + 1, yCoord - 1, xCoord + 1);
+	  				main.score += Math.pow(2, this.power + 1);
+	  			}else {
+		  			tempArray[yCoord - 1][xCoord + 1] = tempArray[yCoord][xCoord];
+		  		}
+	  			tempArray[yCoord][xCoord] = null;
+	  			xCoord += 1;
+	  			yCoord -= 1;
+	  			Board.board = tempArray;
+	  			printArray(Board.board);
+
+	  			main.moveLabel.setText("E");
+	  		}
+>>>>>>> parent of 3b55828... Updated score increment for AI and added spacing for key indicator.
 			break;
 		}
 
@@ -164,6 +264,7 @@ public class Tile extends Canvas {
 
 			while (canMoveLeft()) {
 				main.mainBoard.tileMoved();
+<<<<<<< HEAD
 				System.out.println("Can move with (" + yCoord + ", " + xCoord + ")");
 
 				// System.out.println();
@@ -179,6 +280,24 @@ public class Tile extends Canvas {
 				Board.board = tempArray;
 
 			}
+=======
+	  			System.out.println("Can move with ("+yCoord+", "+xCoord+")");
+	  			Tile[][] tempArray = Board.board;
+	  			if(tempArray[yCoord - 1][xCoord - 1] != null && 
+	  					tempArray[yCoord - 1][xCoord - 1].power == this.power) {
+	  				tempArray[yCoord - 1][xCoord - 1] = new Tile(this.power + 1, yCoord - 1, xCoord - 1);
+	  				main.score += Math.pow(2, this.power + 1);
+	  			}else {
+		  			tempArray[yCoord - 1][xCoord - 1] = tempArray[yCoord][xCoord];
+		  		}
+	  			tempArray[yCoord][xCoord] = null;
+	  			xCoord -= 1;
+	  			yCoord -= 1;
+	  			Board.board = tempArray;
+	  			printArray(Board.board);
+	  			main.moveLabel.setText("Q");
+	  		}
+>>>>>>> parent of 3b55828... Updated score increment for AI and added spacing for key indicator.
 			break;
 		}
 
@@ -187,6 +306,7 @@ public class Tile extends Canvas {
 			// move it if the tile can move up and right
 			while (canMoveE()) {
 				main.mainBoard.tileMoved();
+<<<<<<< HEAD
 				System.out.println("Can move with (" + yCoord + ", " + xCoord + ")");
 				Tile[][] tempArray = Board.board;
 				if (tempArray[yCoord - 1][xCoord + 1] != null
@@ -202,6 +322,24 @@ public class Tile extends Canvas {
 				Board.board = tempArray;
 
 			}
+=======
+	  			System.out.println("Can move with ("+yCoord+", "+xCoord+")");
+	  			Tile[][] tempArray = Board.board;
+	  			if(tempArray[yCoord + 1][xCoord - 1] != null && 
+	  					tempArray[yCoord + 1][xCoord - 1].power == this.power) {
+	  				tempArray[yCoord + 1][xCoord - 1] = new Tile(this.power + 1, yCoord + 1, xCoord - 1);
+	  				main.score += Math.pow(2, this.power + 1);
+	  			}else {
+		  			tempArray[yCoord + 1][xCoord - 1] = tempArray[yCoord][xCoord];
+		  		}
+	  			tempArray[yCoord][xCoord] = null;
+	  			xCoord -= 1;
+	  			yCoord += 1;
+	  			Board.board = tempArray;
+	  			printArray(Board.board);
+	  			main.moveLabel.setText("Z");
+	  		}
+>>>>>>> parent of 3b55828... Updated score increment for AI and added spacing for key indicator.
 			break;
 		}
 
@@ -210,6 +348,7 @@ public class Tile extends Canvas {
 			// move it if the tile can move up and left
 			while (canMoveQ()) {
 				main.mainBoard.tileMoved();
+<<<<<<< HEAD
 				System.out.println("Can move with (" + yCoord + ", " + xCoord + ")");
 				Tile[][] tempArray = Board.board;
 				if (tempArray[yCoord - 1][xCoord - 1] != null
@@ -225,6 +364,41 @@ public class Tile extends Canvas {
 				Board.board = tempArray;
 
 			}
+=======
+	  			System.out.println("Can move with ("+yCoord+", "+xCoord+")");
+	  			Tile[][] tempArray = Board.board;
+	  			if(tempArray[yCoord + 1][xCoord + 1] != null && 
+	  					tempArray[yCoord + 1][xCoord + 1].power == this.power) {
+	  				tempArray[yCoord + 1][xCoord + 1] = new Tile(this.power + 1, yCoord + 1, xCoord + 1);
+	  				main.score += Math.pow(2, this.power + 1);
+	  			}else {
+		  			tempArray[yCoord + 1][xCoord + 1] = tempArray[yCoord][xCoord];
+		  		}
+	  			tempArray[yCoord][xCoord] = null;
+	  			xCoord += 1;
+	  			yCoord += 1;
+	  			Board.board = tempArray;
+	  			printArray(Board.board);
+	  			main.moveLabel.setText("C");
+	  		}
+			break;
+		}
+		
+		/*
+		case 'q':{
+
+			while(canMoveUp() && canMoveLeft()) {
+				main.mainBoard.tileMoved();
+	  			System.out.println("Can move");
+	  			Tile[][] tempArray = Board.board;
+	  			tempArray[yCoord - 1][xCoord - 1] = this;
+	  			tempArray[yCoord][xCoord] = null;
+	  			xCoord -= 1;
+	  			yCoord -= 1;
+	  			Board.board = tempArray;
+	  			printArray(Board.board);
+	  		}
+>>>>>>> parent of 3b55828... Updated score increment for AI and added spacing for key indicator.
 			break;
 		}
 
