@@ -21,6 +21,7 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
 	Checkbox retroBox;
 	public static int score = 0;
 	Label scoreLabel;
+	public static Label moveLabel;
 	Panel mainPanel;
 
 	// variables regarding AI
@@ -36,9 +37,10 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
 		mainPanel.setBackground(Color.black);
 		add(mainPanel);
 		AIPlayButton = new Button("AI Play");
-		RestartButton = new Button("Restart");
+		RestartButton = new Button("New Game");
 		AIPlayButton.addActionListener(this);
 		RestartButton.addActionListener(this);
+
 		CheckboxGroup themeGroup = new CheckboxGroup();
 		setBackground(Color.GRAY);
 		// if you create checkboxes and add to group,they become radio buttons
@@ -84,9 +86,21 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
 
 		// placement of title
 		northPanel.add(titlePanel);
+
 		northPanel.add(scoreLabel);
 
 		mainPanel.add(northPanel, BorderLayout.NORTH);
+
+        
+        //Add score and move status labels
+        Panel scoreMovePanel = new Panel();
+        scoreMovePanel.setLayout(new GridLayout(2, 1));
+        scoreMovePanel.add(scoreLabel);
+        scoreMovePanel.add(moveLabel);
+        northPanel.add(scoreMovePanel);
+
+        mainPanel.add(northPanel, BorderLayout.NORTH);
+
 		mainPanel.setBackground(Color.GRAY);
 		mainPanel.setForeground(Color.GRAY);
 
@@ -205,6 +219,7 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
 				}
 
 			}
+<<<<<<< HEAD
 		}
 		return true;
 
@@ -269,6 +284,7 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
 
 	// generated unused methods for mouseListener
 
+
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
@@ -310,7 +326,7 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
 		if (e.getSource() == RestartButton) {
 			mainBoard.clearBoard();
 			mainBoard.spawnRandTile();
-			mainBoard.repaint();
+			mainBoard.update();
 		}
 
 		// this is the AI playing method
@@ -364,16 +380,37 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
 											AIPlayButton.setLabel("AI Play");
 										}
 
-									}
+					  	  				else if(mainBoard.getBoard()[y][x].canMoveDown()) {
+						  	  				mainBoard.moveTry('s');
+										} 
+				  	  				}
+				  	  				
+				  	  				// stop AI if game is over
+				  	  				if(gameOver()) {
+				  	    	  				mainBoard.paintGameOver();	
+				  	    	  				AIPlaying = false;
+				  	    					AIPlayButton.setLabel("AI Play");
+				  	  				}
 
-								}
-							}
-							mainBoard.repaint();
-						}
-					}
-				}, 0, 200);
+				  	  			 }
+				  	  			
+				  	  		 }
+				    		}
 
+						scoreLabel.setText("Score: " + score + " ");
+	  	  				mainBoard.update();
+		  		    	  	if(gameOver()) {
+		  	    	  			mainBoard.paintGameOver();	
+		  	    	  		}
+				}
+			}
+		}, 0, 200);
+				
+				
+					
+					
+				}
 			}
 		}
-	}
-}
+	}	   
+

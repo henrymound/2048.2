@@ -10,8 +10,12 @@ public class Board extends Canvas {
 	boolean board_full = false;
 	boolean tileHasMoved = false;
 
-	// constructor for beginning of the game
-	Board() {
+	Image backBuffer;
+	Graphics bBG;
+
+	//constructor for beginning of the game
+	Board(){
+
 		setSize(500, 500);
 		setBackground(Color.darkGray);
 
@@ -44,6 +48,7 @@ public class Board extends Canvas {
 	}
 
 	// clears the board
+
 	public void clearBoard() {
 		board = new Tile[4][4];
 	}
@@ -69,6 +74,31 @@ public class Board extends Canvas {
 		g2.drawString("Game Over!", tileCenter - (int) titleOffset.getWidth() / 2,
 				tileCenter + (int) titleOffset.getHeight() / 2 - 10);
 	}
+
+	//Use update instead of paint to use DoubleBuffering
+	public void update() {
+		//Get the current graphics element
+		Graphics g = this.getGraphics();
+		
+		//Get the current dimension
+		Dimension d = this.getSize();
+
+		//Create a new image and graphics to be drawn over
+		Image newImage = createImage(d.width, d.height);
+		Graphics newGraphics = newImage.getGraphics();
+		
+		//Setup the new graphics to have the same gray background
+		newGraphics.setColor(getBackground());
+		newGraphics.fillRect(0, 0, d.width, d.height);
+		
+		//Redraw on newImage via paint with parameter newGraphics
+		paint(newGraphics);
+		
+		//Draw the finished image all at once over the current image
+		g.drawImage(newImage, 0, 0, this);
+	}
+
+
 
 	// paint method that draws the app
 	public void paint(Graphics g) {
@@ -116,6 +146,7 @@ public class Board extends Canvas {
 
 			}
 		}
+
 	}
 
 	// Initiates the checking of every block in the right order for movement
@@ -392,10 +423,12 @@ public class Board extends Canvas {
 		tileHasMoved = true;
 	}
 
+
 	// setter for HasMoved Variable
 	public void tileNotMoved() {
 		tileHasMoved = false;
 	}
+
 
 	// function that test if the board is full
 	public boolean is_Full() {
