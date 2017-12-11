@@ -36,7 +36,6 @@ public class Board extends Canvas {
 			if (board[yRand][xRand] == null) {
 				board[yRand][xRand] = new Tile(powerRand, yRand, xRand);
 				didSpawn = true;
-				System.out.println("Spawned new tile at (" + yRand + ", " + xRand + ")");
 			}
 
 		}
@@ -46,6 +45,7 @@ public class Board extends Canvas {
 	// clears the board
 	public void clearBoard() {
 		board = new Tile[4][4];
+		board_full = false;
 	}
 
 	// getter for the board variable
@@ -149,7 +149,6 @@ public class Board extends Canvas {
 			for (int y = 0; y < 4; y++) {
 				for (int x = 0; x < 4; x++) {
 					if (board[y][x] != null) {
-						System.out.println("Checking if tile at (" + y + ", " + x + ") can move");
 
 						board[y][x].canMove(c);
 					}
@@ -163,7 +162,6 @@ public class Board extends Canvas {
 			for (int x = 0; x < 4; x++) {
 				for (int y = 0; y < 4; y++) {
 					if (board[y][x] != null) {
-						System.out.println("Checking if tile at (" + y + ", " + x + ") can move");
 
 						board[y][x].canMove(c);
 					}
@@ -178,7 +176,6 @@ public class Board extends Canvas {
 			for (int y = 3; y >= 0; y--) {
 				for (int x = 3; x >= 0; x--) {
 					if (board[y][x] != null) {
-						System.out.println("Checking if tile at (" + y + ", " + x + ") can move");
 
 						board[y][x].canMove(c);
 					}
@@ -192,7 +189,6 @@ public class Board extends Canvas {
 			for (int x = 3; x >= 0; x--) {
 				for (int y = 3; y >= 0; y--) {
 					if (board[y][x] != null) {
-						System.out.println("Checking if tile at (" + y + ", " + x + ") can move");
 
 						board[y][x].canMove(c);
 					}
