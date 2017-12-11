@@ -9,22 +9,26 @@ public class Board extends Canvas {
 	public static Tile[][] board = new Tile[4][4];
 	boolean board_full = false;
 	boolean tileHasMoved = false;
+	Image backBuffer;
+	Graphics bBG;
+	// constructor
 
-	// constructor for beginning of the game
-	Board() {
+	
+	//constructor for beginning of the game
+	Board(){
 		setSize(500, 500);
 		setBackground(Color.darkGray);
 
 		spawnRandTile();
-
+		
 	}
-
+	
 	// repaint method that calls paint for clarity
 	public void repaint() {
-
+		
 		paint(this.getGraphics());
 	}
-
+	
 	// how to go about spawning a new tile
 	// will not spawn on another tile, and won't spawn if the board is full
 	public void spawnRandTile() {
@@ -43,16 +47,16 @@ public class Board extends Canvas {
 
 	}
 
-	// clears the board
+	//clears the board
 	public void clearBoard() {
 		board = new Tile[4][4];
 	}
-
+	
 	// getter for the board variable
 	public Tile[][] getBoard() {
 		return board;
 	}
-
+	
 	// method that is called if the game is over and out puts a message accordingly
 	public void paintGameOver() {
 		Graphics g = this.getGraphics();
@@ -70,27 +74,54 @@ public class Board extends Canvas {
 				tileCenter + (int) titleOffset.getHeight() / 2 - 10);
 	}
 
+	//Use update instead of paint to use DoubleBuffering
+	public void update() {
+		//Get the current graphics element
+		Graphics g = this.getGraphics();
+		
+		//Get the current dimension
+		Dimension d = this.getSize();
+
+		//Create a new image and graphics to be drawn over
+		Image newImage = createImage(d.width, d.height);
+		Graphics newGraphics = newImage.getGraphics();
+		
+		//Setup the new graphics to have the same gray background
+		newGraphics.setColor(getBackground());
+		newGraphics.fillRect(0, 0, d.width, d.height);
+		
+		//Redraw on newImage via paint with parameter newGraphics
+		paint(newGraphics);
+		
+		//Draw the finished image all at once over the current image
+		g.drawImage(newImage, 0, 0, this);
+	}
+
+
 	// paint method that draws the app
-	public void paint(Graphics g) {
+	public void paint(Graphics g){
 
-		// cast to 2D object to enable anti-aliasing
-		Graphics2D g2 = (Graphics2D) g;
-
+		// cast to 2D object to enable anti-aliasing 
+		Graphics2D g2 = (Graphics2D)g;
+		
 		// calls for anti aliasing of the board objects
-		RenderingHints rh = new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		g2.setRenderingHints(rh);
-
-		// creates the background of board
+	    RenderingHints rh = new RenderingHints(
+	             RenderingHints.KEY_ANTIALIASING,
+	             RenderingHints.VALUE_ANTIALIAS_ON);
+	    g2.setRenderingHints(rh);
+	    
+	    // creates the background of board
 		Dimension d = getSize();
 		g2.setColor(Color.DARK_GRAY);
-		g2.fillRect(0, 0, d.width, d.height);// Clear board;
-
+		g2.fillRect(0, 0, d.width, d.height);//Clear board;
+		
 		// drawing of the tiles on the board
 		for (int i = 0; i < board.length; i++) {
 			int yCoord = 0;
 			yCoord = (int) (main.BOARD_SIZE * (1 - (Tile.TILE_RATIO * (5 - i))))
 					+ (int) ((i + 1) * Tile.TILE_SPACING * main.BOARD_SIZE);
 
+			
 			// draws the color of the each tile and the numbers on top
 			for (int x = 0; x < board[i].length; x++) {
 				if (board[i][x] != null) {
@@ -116,12 +147,13 @@ public class Board extends Canvas {
 
 			}
 		}
-	}
 
+	}
+	
 	// Initiates the checking of every block in the right order for movement
 	public void moveTry(char c) {
 		switch (c) {
-
+		
 		// if w check if each tile can move in the up direction, in the correct order
 		case 'w': {
 			for (int y = 0; y < 4; y++) {
@@ -135,7 +167,7 @@ public class Board extends Canvas {
 			}
 			break;
 		}
-
+		
 		// if a check if each tile can move in the left direction, in the correct order
 		case 'a': {
 			for (int x = 0; x < 4; x++) {
@@ -150,7 +182,7 @@ public class Board extends Canvas {
 			break;
 
 		}
-
+		
 		// if s check if each tile can move in the down direction, in the correct order
 		case 's': {
 			for (int y = 3; y >= 0; y--) {
@@ -164,7 +196,7 @@ public class Board extends Canvas {
 			}
 			break;
 		}
-
+		
 		// if d check if each tile can move in the right direction, in the correct order
 		case 'd': {
 			for (int x = 3; x >= 0; x--) {
@@ -179,13 +211,12 @@ public class Board extends Canvas {
 			break;
 
 		}
-
-		// if e check if each tile can move in the up&right direction, in the correct
-		// order
+		
+		// if e check if each tile can move in the up&right direction, in the correct order
 		case 'e': {
 			char e = 'e';
-
-			// if statements for order instead of complex loops for readability
+			
+			// if statements for order instead of complex loops for readability 
 			if (board[3][3] != null)
 				move(board[3][3], e);
 
@@ -228,9 +259,8 @@ public class Board extends Canvas {
 			break;
 
 		}
-
-		// if q check if each tile can move in the up&left direction, in the correct
-		// order
+		
+		// if q check if each tile can move in the up&left direction, in the correct order
 		case 'q': {
 			char e = 'q';
 
@@ -275,9 +305,8 @@ public class Board extends Canvas {
 			break;
 
 		}
-
-		// if c check if each tile can move in the down&right direction, in the correct
-		// order
+		
+		// if c check if each tile can move in the down&right direction, in the correct order
 		case 'c': {
 			char e = 'c';
 			if (board[3][0] != null)
@@ -322,9 +351,8 @@ public class Board extends Canvas {
 			break;
 
 		}
-
-		// if z check if each tile can move in the down&left direction, in the correct
-		// order
+		
+		// if z check if each tile can move in the down&left direction, in the correct order
 		case 'z': {
 			char e = 'z';
 			if (board[0][0] != null)
@@ -382,7 +410,7 @@ public class Board extends Canvas {
 
 	}
 
-	// helper function to create clarity in the if statements that calls canMove()
+	//
 	public void move(Tile t, char c) {
 		t.canMove(c);
 	}
@@ -392,10 +420,12 @@ public class Board extends Canvas {
 		tileHasMoved = true;
 	}
 
+
 	// setter for HasMoved Variable
 	public void tileNotMoved() {
 		tileHasMoved = false;
 	}
+
 
 	// function that test if the board is full
 	public boolean is_Full() {
