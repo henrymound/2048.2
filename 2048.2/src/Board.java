@@ -1,27 +1,10 @@
 import java.awt.*;
-<<<<<<< HEAD
-
-public class Board extends Canvas {
-	
-=======
 import java.awt.geom.Rectangle2D;
 
 public class Board extends Canvas {
 
 	private static final long serialVersionUID = 1L;
 
-<<<<<<< HEAD
->>>>>>> master
-	//instance variables
-	Tile[][] board = new Tile[4][4];
-	boolean board_full = false;
-	boolean tileHasMoved = false;
-	
-	//constructor
-<<<<<<< HEAD
-=======
-	
-=======
 	// instance variables
 	public static Tile[][] board = new Tile[4][4];
 	boolean board_full = false;
@@ -37,7 +20,6 @@ public class Board extends Canvas {
 	}
 
 	// repaint method that calls paint for clarity
->>>>>>> master
 	public void repaint() {
 
 		paint(this.getGraphics());
@@ -59,21 +41,8 @@ public class Board extends Canvas {
 		}
 
 	}
-<<<<<<< HEAD
-	
->>>>>>> master
-	Board(){
-		setSize(500, 500);
-		setBackground(Color.darkGray);
-	}
-	
-<<<<<<< HEAD
-	//methods
-=======
-=======
 
 	// clears the board
->>>>>>> master
 	public void clearBoard() {
 		board = new Tile[4][4];
 		board_full = false;
@@ -445,13 +414,8 @@ public class Board extends Canvas {
 	public void tileNotMoved() {
 		tileHasMoved = false;
 	}
-<<<<<<< HEAD
-	
->>>>>>> master
-=======
 
 	// function that test if the board is full
->>>>>>> master
 	public boolean is_Full() {
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 4; j++) {
