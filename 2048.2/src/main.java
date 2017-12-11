@@ -125,7 +125,7 @@ public class main extends Applet implements KeyListener, ItemListener, MouseList
 	
 	// makes button that restarts the game
 	public Button makeRestartButton() {
-		RestartButton = new Button("New Game");
+		RestartButton = new Button("Restart");
 		RestartButton.addActionListener(this);
 		RestartButton.setForeground(Color.BLACK);
 		return RestartButton;
